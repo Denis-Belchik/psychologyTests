@@ -22,35 +22,7 @@ public class QuestionController {
         return "test-start";
     }
 
-//    @GetMapping("/test-view")
-//    public String viewTest(Model model) {
-////        System.out.println("get");
-//        if (!testService.isTestRunning())
-//            return "redirect:/";
-//
-//        Question question = testService.getQuestion();
-//        if (question != null) {
-//            model.addAttribute("title", testService.getTitle());
-//            model.addAttribute("quest", question.getBody());
-//            model.addAttribute("answers", question.getListAnswers());
-//            return "test-view";
-//        }
-//
-//        model.addAttribute("summ", testService.getValueAnswer());
-//        return "test-end";
-//    }
-//
-//    @PostMapping("/test-post")
-//    public String viewTestNext(Integer id) {
-////        System.out.println("post");
-//        if (!testService.isTestRunning())
-//            return "redirect:/";
-//
-//        testService.setValueAnswer(id);
-//        return "redirect:/test-view";
-//    }
-
-    @PostMapping("/test-view")
+    @GetMapping("/test-view")
     public String viewTest(Model model) {
 //        System.out.println("get");
         if (!testService.isTestRunning())
@@ -73,7 +45,7 @@ public class QuestionController {
 //        System.out.println("post");
         if (!testService.isTestRunning())
             return "redirect:/";
-
+        testService.nextIDQuest();
         testService.setValueAnswer(id);
         return "redirect:/test-view";
     }

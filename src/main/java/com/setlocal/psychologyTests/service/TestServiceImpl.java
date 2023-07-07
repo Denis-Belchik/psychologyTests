@@ -39,8 +39,13 @@ public class TestServiceImpl implements TestService {
     @Override
     public Question getQuestion() {
         if (test.getLength() > IDQuest)
-            return test.getQuestionList().get(IDQuest++);
+            return test.getQuestionList().get(IDQuest);
         return null;
+    }
+
+    @Override
+    public void nextIDQuest(){
+        IDQuest++;
     }
 
     @Override
