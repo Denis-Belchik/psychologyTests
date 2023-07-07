@@ -15,4 +15,6 @@ public interface TestService {
     boolean isTestRunning();
 
     void setTestRunning(boolean isRun);
+
+    void nextIDQuest();
 }
