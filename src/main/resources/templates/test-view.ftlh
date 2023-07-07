@@ -112,8 +112,8 @@
     }
 </style>
 <body>
-<h1>${title}</h1><br>
-<form class="containerForm" method="post" action="/testPost">
+<h1>${title}</h1>
+<form class="containerForm" method="post" action="/test-post">
     <fieldset>
         <h1>${quest}</h1>
 
@@ -124,8 +124,8 @@
             </label>
         </#list>
 
-        <input class="button" type="submit" value="Предыдущий">
-        <input class="button" type="submit" value="Следующий">
+<#--        <input class="button" type="submit" name="button" value="Предыдущий">-->
+        <input class="button" type="submit" name="button" value="Следующий">
     </fieldset>
 </form>
 </body>

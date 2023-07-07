@@ -4,7 +4,7 @@
     <title>Тестирование</title>
 </head>
 <body>
-<form method="get" action="/testView">
+<form method="get" action="/test-view">
     <fieldset>
         <input type="submit" value="Начать">
     </fieldset>
