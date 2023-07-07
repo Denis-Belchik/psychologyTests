@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 public class TestServiceImpl implements TestService {
 
     private final Test test;
-
     private int IDQuest = 0;
-
     private Integer sumAnswer = 0;
 
     public TestServiceImpl(Test test) {
@@ -29,15 +27,19 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Question getQuestion() {
-        return test.getListQuestion().get(IDQuest);
+    public boolean isTestRunning(){
+        return test.isTestRunning();
     }
 
     @Override
-    public Question getNextQuestion() {
-        System.out.println("IDQuest = " + IDQuest);
+    public void setTestRunning(boolean isRun){
+        test.setTestRunning(isRun);
+    }
+
+    @Override
+    public Question getQuestion() {
         if (test.getLength() > IDQuest)
-            return test.getListQuestion().get(IDQuest++);
+            return test.getQuestionList().get(IDQuest++);
         return null;
     }
 

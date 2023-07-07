@@ -6,11 +6,13 @@ public interface TestService {
 
     Question getQuestion();
 
-    Question getNextQuestion();
-
     String getTitle();
 
     void setValueAnswer(Integer id);
 
     Integer getValueAnswer();
+
+    boolean isTestRunning();
+
+    void setTestRunning(boolean isRun);
 }
