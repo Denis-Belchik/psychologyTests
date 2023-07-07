@@ -1,15 +1,13 @@
 package com.setlocal.psychologyTests.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class Question {
 
     private String body;
 
-    private List<String> answer = new ArrayList<>();
+    private List<Answer> answers = new ArrayList<>();
 
     public Question() {
     }
@@ -20,10 +18,23 @@ public class Question {
                     String answer2,
                     String answer3) {
         this.body = body;
-        this.answer.add(answer0);
-        this.answer.add(answer1);
-        this.answer.add(answer2);
-        this.answer.add(answer3);
+        Answer answerTemp;
+
+        answerTemp= new Answer(answer0);
+        answerTemp.setID(1);
+        this.answers.add(answerTemp);
+
+        answerTemp= new Answer(answer1);
+        answerTemp.setID(2);
+        this.answers.add(answerTemp);
+
+        answerTemp= new Answer(answer2);
+        answerTemp.setID(3);
+        this.answers.add(answerTemp);
+
+        answerTemp= new Answer(answer3);
+        answerTemp.setID(4);
+        this.answers.add(answerTemp);
     }
 
     public String getBody() {
@@ -34,13 +45,39 @@ public class Question {
         this.body = body;
     }
 
-    public List<String> getAnswer() {
-        return answer;
+    public List<Answer> getListAnswers() {
+        return answers;
     }
 
-    public void setAnswer(List<String> answer) {
-        this.answer = answer;
+    public void setListAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
+    public static class Answer{
 
+        private String answerBody;
+
+        private int ID;
+
+        public Answer(String answerBody) {
+            this.answerBody = answerBody;
+//            this.ID++;
+        }
+
+        public String getAnswerBody() {
+            return answerBody;
+        }
+
+        public void setAnswerBody(String answerBody) {
+            this.answerBody = answerBody;
+        }
+
+        public int getIDAnswer() {
+            return ID;
+        }
+
+        public void setID(int ID) {
+            this.ID = ID;
+        }
+    }
 }
