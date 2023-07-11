@@ -22,7 +22,7 @@ public interface TestService {
 
     Integer getSize();
 
-    void setValueAnswer(Integer id);
+    void setValueAnswer(Integer... id);
 
     Integer getValueAnswer();
 

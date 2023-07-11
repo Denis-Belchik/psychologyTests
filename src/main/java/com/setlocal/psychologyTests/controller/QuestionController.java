@@ -54,7 +54,7 @@ public class QuestionController {
     }
 
     @PostMapping("/test-post")
-    public String viewTestNext(Integer id, String button, Model model) {
+    public String viewTestNext(String button, Model model, Integer... id) {
         if (!testService.isTestRunning())
             return "redirect:/";
 
@@ -66,6 +66,9 @@ public class QuestionController {
             testService.setValueAnswer(id);
             model.addAttribute("summ", testService.getValueAnswer());
             return "test-end";
+        }
+        for (Integer integer : id) {
+            System.out.println("integer = " + integer);
         }
         testService.setValueAnswer(id);
         return "redirect:/test-view";

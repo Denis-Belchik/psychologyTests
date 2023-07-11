@@ -80,8 +80,10 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void setValueAnswer(Integer id) {
-        sumAnswer += id;
+    public void setValueAnswer(Integer... id) {
+        for (Integer integer : id) {
+            sumAnswer = sumAnswer + integer;
+        }
     }
 
     @Override
