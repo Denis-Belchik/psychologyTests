@@ -8,13 +8,23 @@ public interface TestService {
 
     String getTitle();
 
+    boolean isTestRunning();
+
+    void testRun(int id);
+
+    void testStop();
+
+    void nextPosition();
+
+    void prefPosition();
+
+    Integer getPosition();
+
+    Integer getSize();
+
     void setValueAnswer(Integer id);
 
     Integer getValueAnswer();
 
-    boolean isTestRunning();
-
-    void setTestRunning(boolean isRun);
-
-    void nextIDQuest();
+    Question.PossibleAnswer.TypeAnswer getType();
 }

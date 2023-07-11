@@ -2,54 +2,90 @@ package com.setlocal.psychologyTests.service;
 
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
+import com.setlocal.psychologyTests.repository.TestRepository;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class TestServiceImpl implements TestService {
 
-    private final Test test;
-    private int IDQuest = 0;
+    private final TestRepository testRepository;
+
+    private Test test;
+
+    private int position = 0;
+
+    private boolean isRun = false;
+
     private Integer sumAnswer = 0;
 
-    public TestServiceImpl(Test test) {
-        this.test = test;
+    public TestServiceImpl(TestRepository testRepository) {
+        this.testRepository = testRepository;
     }
 
     @Override
-    public void setValueAnswer(Integer id){
-        sumAnswer += id;
+    public boolean isTestRunning() {
+        return isRun;
     }
 
     @Override
-    public Integer getValueAnswer(){
-        return sumAnswer;
+    public void testRun(int id) {
+        testRepository.init(id);
+        test = testRepository.getTest();
+        isRun = true;
     }
 
     @Override
-    public boolean isTestRunning(){
-        return test.isTestRunning();
+    public void testStop() {
+        position = 0;
+        test = null;
     }
 
     @Override
-    public void setTestRunning(boolean isRun){
-        test.setTestRunning(isRun);
+    public void nextPosition() {
+        if (position < test.getLengthTest())
+            position++;
+    }
+
+    @Override
+    public void prefPosition() {
+        if (position > 0)
+            position--;
     }
 
     @Override
     public Question getQuestion() {
-        if (test.getLength() > IDQuest)
-            return test.getQuestionList().get(IDQuest);
+        if (test.getLengthTest() > position)
+            return test.getQuestionList().get(position);
         return null;
     }
 
     @Override
-    public void nextIDQuest(){
-        IDQuest++;
+    public Question.PossibleAnswer.TypeAnswer getType(){
+        return test.getQuestionList().get(position).getAnswersList().get(0).getType();
+    }
+
+    @Override
+    public Integer getPosition() {
+        return position;
     }
 
     @Override
     public String getTitle() {
-        return test.getTitle();
+        return test.getTitleTest();
+    }
+
+    @Override
+    public Integer getSize() {
+        return test.getLengthTest();
+    }
+
+    @Override
+    public void setValueAnswer(Integer id) {
+        sumAnswer += id;
+    }
+
+    @Override
+    public Integer getValueAnswer() {
+        return sumAnswer;
     }
 }

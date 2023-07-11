@@ -1,83 +1,62 @@
 package com.setlocal.psychologyTests.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Question {
 
-    private String body;
+    private final int ID;
 
-    private List<Answer> answers = new ArrayList<>();
+    private final String bodyQuestion;
 
-    public Question() {
+    private final List<PossibleAnswer> answers = new ArrayList<>();
+
+    public Question(Integer ID, String bodyQuestion, PossibleAnswer... possibleAnswer) {
+        this.ID = ID;
+        this.bodyQuestion = bodyQuestion;
+        this.answers.addAll(Arrays.asList(possibleAnswer));
     }
 
-    public Question(String body,
-                    String answer0,
-                    String answer1,
-                    String answer2,
-                    String answer3) {
-        this.body = body;
-        Answer answerTemp;
-
-        answerTemp= new Answer(answer0);
-        answerTemp.setID(1);
-        this.answers.add(answerTemp);
-
-        answerTemp= new Answer(answer1);
-        answerTemp.setID(2);
-        this.answers.add(answerTemp);
-
-        answerTemp= new Answer(answer2);
-        answerTemp.setID(3);
-        this.answers.add(answerTemp);
-
-        answerTemp= new Answer(answer3);
-        answerTemp.setID(4);
-        this.answers.add(answerTemp);
+    public int getIDQuestion(){
+        return ID;
     }
 
-    public String getBody() {
-        return body;
+    public String getBodyQuestion() {
+        return bodyQuestion;
     }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public List<Answer> getListAnswers() {
+    public List<PossibleAnswer> getAnswersList() {
         return answers;
     }
 
-    public void setListAnswers(List<Answer> answers) {
-        this.answers = answers;
-    }
+    public static class PossibleAnswer {
+        private final String possibleAnswer;
+        private final int ID;
+        private final TypeAnswer type;
 
-    public static class Answer{
-
-        private String answerBody;
-
-        private int ID;
-
-        public Answer(String answerBody) {
-            this.answerBody = answerBody;
-//            this.ID++;
+        public PossibleAnswer(int ID, String answerBody, TypeAnswer type) {
+            this.ID = ID;
+            this.possibleAnswer = answerBody;
+            this.type = type;
         }
 
-        public String getAnswerBody() {
-            return answerBody;
+        public String getPossibleAnswer() {
+            return possibleAnswer;
         }
 
-        public void setAnswerBody(String answerBody) {
-            this.answerBody = answerBody;
-        }
-
-        public int getIDAnswer() {
+        public int getID() {
             return ID;
         }
 
-        public void setID(int ID) {
-            this.ID = ID;
+        public TypeAnswer getType(){
+            return type;
         }
+
+        public enum TypeAnswer {
+            RADIO,
+            CHECKBOX
+        }
+
     }
 }

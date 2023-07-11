@@ -18,21 +18,22 @@ public class QuestionController {
 
     @GetMapping("/")
     public String main() {
-        testService.setTestRunning(true);
         return "test-start";
     }
 
     @GetMapping("/test-view")
     public String viewTest(Model model) {
-//        System.out.println("get");
         if (!testService.isTestRunning())
             return "redirect:/";
 
         Question question = testService.getQuestion();
         if (question != null) {
             model.addAttribute("title", testService.getTitle());
-            model.addAttribute("quest", question.getBody());
-            model.addAttribute("answers", question.getListAnswers());
+            model.addAttribute("quest", question.getBodyQuestion());
+            model.addAttribute("type", testService.getType());
+            model.addAttribute("answers", question.getAnswersList());
+            model.addAttribute("position", testService.getPosition());
+            model.addAttribute("sizeTest", testService.getSize());
             return "test-view";
         }
 
@@ -40,12 +41,32 @@ public class QuestionController {
         return "test-end";
     }
 
+    @PostMapping("/test-run")
+    public String viewTestRun(Integer id) {
+        testService.testRun(id);
+        return "redirect:/test-view";
+    }
+
+    @PostMapping("/test-end")
+    public String viewTestEnd() {
+        testService.testStop();
+        return "redirect:/";
+    }
+
     @PostMapping("/test-post")
-    public String viewTestNext(Integer id) {
-//        System.out.println("post");
+    public String viewTestNext(Integer id, String button, Model model) {
         if (!testService.isTestRunning())
             return "redirect:/";
-        testService.nextIDQuest();
+
+        if (button.equals("Следующий"))
+            testService.nextPosition();
+        if (button.equals("Предыдущий"))
+            testService.prefPosition();
+        if (button.equals("Закончить")) {
+            testService.setValueAnswer(id);
+            model.addAttribute("summ", testService.getValueAnswer());
+            return "test-end";
+        }
         testService.setValueAnswer(id);
         return "redirect:/test-view";
     }
