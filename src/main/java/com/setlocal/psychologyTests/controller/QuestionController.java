@@ -1,6 +1,7 @@
 package com.setlocal.psychologyTests.controller;
 
 import com.setlocal.psychologyTests.model.Question;
+import com.setlocal.psychologyTests.service.TestResultServiceImpl;
 import com.setlocal.psychologyTests.service.TestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +13,11 @@ public class QuestionController {
 
     private final TestService testService;
 
-    public QuestionController(TestService testService) {
+    private final TestResultServiceImpl testResultService;
+
+    public QuestionController(TestService testService, TestResultServiceImpl testResultService) {
         this.testService = testService;
+        this.testResultService = testResultService;
     }
 
     @GetMapping("/")
@@ -37,7 +41,7 @@ public class QuestionController {
             return "test-view";
         }
 
-        model.addAttribute("summ", testService.getValueAnswer());
+        model.addAttribute("resultQuest", testResultService.getResultQuest());
         return "test-end";
     }
 
@@ -58,19 +62,19 @@ public class QuestionController {
         if (!testService.isTestRunning())
             return "redirect:/";
 
-        if (button.equals("Следующий"))
+        if (button.equals("Следующий")) {
+            testResultService.addResult(testService.getQuestion().getIDQuestion(), id);
             testService.nextPosition();
+        }
         if (button.equals("Предыдущий"))
             testService.prefPosition();
+
         if (button.equals("Закончить")) {
-            testService.setValueAnswer(id);
-            model.addAttribute("summ", testService.getValueAnswer());
+            testResultService.addResult(testService.getQuestion().getIDQuestion(), id);
+            model.addAttribute("resultQuest", testResultService.getResultQuest());
             return "test-end";
         }
-        for (Integer integer : id) {
-            System.out.println("integer = " + integer);
-        }
-        testService.setValueAnswer(id);
+
         return "redirect:/test-view";
     }
 

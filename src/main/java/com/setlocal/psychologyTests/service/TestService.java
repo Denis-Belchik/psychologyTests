@@ -22,9 +22,5 @@ public interface TestService {
 
     Integer getSize();
 
-    void setValueAnswer(Integer... id);
-
-    Integer getValueAnswer();
-
-    Question.PossibleAnswer.TypeAnswer getType();
+    Question.TypeAnswer getType();
 }

@@ -16,8 +16,6 @@ public class TestServiceImpl implements TestService {
 
     private boolean isRun = false;
 
-    private Integer sumAnswer = 0;
-
     public TestServiceImpl(TestRepository testRepository) {
         this.testRepository = testRepository;
     }
@@ -60,8 +58,8 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Question.PossibleAnswer.TypeAnswer getType(){
-        return test.getQuestionList().get(position).getAnswersList().get(0).getType();
+    public Question.TypeAnswer getType(){
+        return test.getQuestionList().get(position).getType();
     }
 
     @Override
@@ -79,15 +77,4 @@ public class TestServiceImpl implements TestService {
         return test.getLengthTest();
     }
 
-    @Override
-    public void setValueAnswer(Integer... id) {
-        for (Integer integer : id) {
-            sumAnswer = sumAnswer + integer;
-        }
-    }
-
-    @Override
-    public Integer getValueAnswer() {
-        return sumAnswer;
-    }
 }
