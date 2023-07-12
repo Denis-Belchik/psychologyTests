@@ -5,13 +5,18 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class TestResultServiceImpl implements TestResultService{
+public class TestResultServiceImpl implements TestResultService {
 
     private final Map<Integer, List<Integer>> repositoryResultTest = new LinkedHashMap<>();
 
     @Override
     public void addResult(Integer position, Integer[] id) {
-        List<Integer> list = new ArrayList<>(List.of(id));
+        List<Integer> list;
+        if (id == null) {
+            list = new ArrayList<>(List.of(0));
+        } else {
+            list = new ArrayList<>(List.of(id));
+        }
         repositoryResultTest.put(position, list);
     }
 
@@ -21,12 +26,12 @@ public class TestResultServiceImpl implements TestResultService{
     }
 
     @Override
-    public Set<Integer> getNumberQuest(){
+    public Set<Integer> getNumberQuest() {
         return repositoryResultTest.keySet();
     }
 
     @Override
-    public Collection<List<Integer>> getResultQuest(){
+    public Collection<List<Integer>> getResultQuest() {
         return repositoryResultTest.values();
     }
 }

@@ -218,14 +218,14 @@
             <input class="button" type="submit" name="button" value="Следующий">
         </#if>
 
-        <script type="text/javascript">
-            function RAZ911() {
-                var c = document.getElementsByName('id');
-                if (!c[0].checked) c[0].checked = true;  // поставить checked на второй input, если он не установлен
-            }
+<#--        <script type="text/javascript">-->
+<#--            function RAZ911() {-->
+<#--                var c = document.getElementsByName('id');-->
+<#--                if (!c[0].checked) c[0].checked = true;  // поставить checked на первый input, если он не установлен-->
+<#--            }-->
 
-            RAZ911();
-        </script>
+<#--            RAZ911();-->
+<#--        </script>-->
     </fieldset>
 </form>
 </body>
