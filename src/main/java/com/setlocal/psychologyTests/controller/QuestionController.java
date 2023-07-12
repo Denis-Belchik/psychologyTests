@@ -3,14 +3,14 @@ package com.setlocal.psychologyTests.controller;
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.service.TestResultServiceImpl;
 import com.setlocal.psychologyTests.service.TestService;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Arrays;
-
 @Controller
+@Scope("session")
 public class QuestionController {
 
     private final TestService testService;

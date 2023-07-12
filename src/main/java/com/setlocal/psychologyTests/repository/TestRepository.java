@@ -2,9 +2,11 @@ package com.setlocal.psychologyTests.repository;
 
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Scope("session")
 public class TestRepository {
 
     private Test test;

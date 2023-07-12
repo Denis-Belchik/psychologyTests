@@ -1,10 +1,12 @@
 package com.setlocal.psychologyTests.service;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
+@Scope("session")
 public class TestResultServiceImpl implements TestResultService {
 
     private final Map<Integer, List<Integer>> repositoryResultTest = new LinkedHashMap<>();

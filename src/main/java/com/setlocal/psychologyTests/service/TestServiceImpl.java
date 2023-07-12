@@ -3,9 +3,11 @@ package com.setlocal.psychologyTests.service;
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
 import com.setlocal.psychologyTests.repository.TestRepository;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
+@Scope("session")
 public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
