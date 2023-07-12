@@ -6,20 +6,32 @@ import java.util.List;
 
 public class Question {
 
+    public enum TypeAnswer {
+        RADIO,
+        CHECKBOX
+    }
+
     private final int ID;
 
     private final String bodyQuestion;
 
+    private final TypeAnswer type;
+
     private final List<PossibleAnswer> answers = new ArrayList<>();
 
-    public Question(Integer ID, String bodyQuestion, PossibleAnswer... possibleAnswer) {
+    public Question(Integer ID, String bodyQuestion, TypeAnswer type, PossibleAnswer... possibleAnswer) {
         this.ID = ID;
         this.bodyQuestion = bodyQuestion;
         this.answers.addAll(Arrays.asList(possibleAnswer));
+        this.type = type;
     }
 
     public int getIDQuestion(){
         return ID;
+    }
+
+    public TypeAnswer getType(){
+        return type;
     }
 
     public String getBodyQuestion() {
@@ -33,12 +45,10 @@ public class Question {
     public static class PossibleAnswer {
         private final String possibleAnswer;
         private final int ID;
-        private final TypeAnswer type;
 
-        public PossibleAnswer(int ID, String answerBody, TypeAnswer type) {
+        public PossibleAnswer(int ID, String answerBody) {
             this.ID = ID;
             this.possibleAnswer = answerBody;
-            this.type = type;
         }
 
         public String getPossibleAnswer() {
@@ -47,15 +57,6 @@ public class Question {
 
         public int getID() {
             return ID;
-        }
-
-        public TypeAnswer getType(){
-            return type;
-        }
-
-        public enum TypeAnswer {
-            RADIO,
-            CHECKBOX
         }
 
     }

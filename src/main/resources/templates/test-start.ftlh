@@ -46,7 +46,7 @@
 <form method="post" action="/test-run">
     <fieldset>
         <input type="hidden" name="id" value="1">
-        <input class="button" type="submit" name="button" value="Начать1">
+        <input class="button" type="submit" name="button" value="Начать 1">
         Тестирование 1
     </fieldset>
 </form>
@@ -54,7 +54,7 @@
 <form method="post" action="/test-run">
     <fieldset>
         <input type="hidden" name="id" value="2">
-        <input class="button" type="submit" name="button" value="Начать2">
+        <input class="button" type="submit" name="button" value="Начать 2">
         Тестирование 2
     </fieldset>
 </form>

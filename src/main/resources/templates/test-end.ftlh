@@ -5,6 +5,22 @@
     <title>Тестирование</title>
 </head>
 <style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        /*width: 100%;*/
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 5px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+
     .button {
         position: relative;
         background-color: #4CAF50;
@@ -42,10 +58,27 @@
     }
 </style>
 <body>
-<h1>И зачем ты это все тыкал? Набрано ${summ} баллов далдон!</h1>
+
+<h1>Твой результат</h1>
 <form method="post" action="/test-end">
     <fieldset>
-<#--        <input type="hidden" name="id" value="2">-->
+        <table>
+            <tr>
+                <th>№ Вопроса</th>
+                <th>Ответы</th>
+            </tr>
+            <#assign number = 1>
+            <#list resultQuest as result>
+                <#list result as elem>
+                    <tr>
+                        <td>${number}</td>
+                        <td>${elem}</td>
+                    </tr>
+                </#list>
+                <#assign number = number +1>
+            </#list>
+        </table>
+        <br>
         <input class="button" type="submit" name="button" value="К тестам">
     </fieldset>
 </form>
