@@ -43,7 +43,7 @@
 </style>
 <body>
 <h2>Вы можете пройти тесты:</h2>
-<form method="post" action="/test-run">
+<form method="post" action="/test-post-start">
     <fieldset>
         <input type="hidden" name="id" value="1">
         <input class="button" type="submit" name="button" value="Начать 1">
@@ -51,7 +51,7 @@
     </fieldset>
 </form>
 <br>
-<form method="post" action="/test-run">
+<form method="post" action="/test-post-start">
     <fieldset>
         <input type="hidden" name="id" value="2">
         <input class="button" type="submit" name="button" value="Начать 2">

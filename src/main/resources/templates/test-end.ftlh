@@ -60,7 +60,7 @@
 <body>
 
 <h1>Твой результат</h1>
-<form method="post" action="/test-end">
+<form method="post" action="/test-post-end">
     <fieldset>
         <table>
             <tr>

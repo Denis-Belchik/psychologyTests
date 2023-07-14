@@ -181,7 +181,7 @@
 
 <body>
 <h1>${title}</h1>
-<form class="containerForm" method="post" action="/test-post">
+<form class="containerForm" method="post" action="/test-post-view">
     <fieldset>
         <p>${position + 1}/${sizeTest}</p>
         <h1>${quest}</h1>
@@ -206,8 +206,6 @@
 
         </#if>
 
-
-
         <#if position != 0>
             <input class="button" type="submit" name="button" value="Предыдущий">
         </#if>
@@ -218,14 +216,6 @@
             <input class="button" type="submit" name="button" value="Следующий">
         </#if>
 
-<#--        <script type="text/javascript">-->
-<#--            function RAZ911() {-->
-<#--                var c = document.getElementsByName('id');-->
-<#--                if (!c[0].checked) c[0].checked = true;  // поставить checked на первый input, если он не установлен-->
-<#--            }-->
-
-<#--            RAZ911();-->
-<#--        </script>-->
     </fieldset>
 </form>
 </body>
