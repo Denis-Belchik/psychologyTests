@@ -27,6 +27,12 @@ public class QuestionController {
         return "test-start";
     }
 
+    @GetMapping("/test-end")
+    public String endTest(Model model) {
+        model.addAttribute("resultQuest", testResultService.getResultQuest());
+        return "test-end";
+    }
+
     @GetMapping("/test-view")
     public String viewTest(Model model) {
         if (!testService.isTestRunning())
@@ -43,24 +49,23 @@ public class QuestionController {
             return "test-view";
         }
 
-        model.addAttribute("resultQuest", testResultService.getResultQuest());
         return "test-end";
     }
 
-    @PostMapping("/test-run")
-    public String viewTestRun(Integer id) {
+    @PostMapping("/test-post-start")
+    public String testPostStart(Integer id) {
         testService.testRun(id);
         return "redirect:/test-view";
     }
 
-    @PostMapping("/test-end")
-    public String viewTestEnd() {
+    @PostMapping("/test-post-end")
+    public String testPostEnd() {
         testService.testStop();
         return "redirect:/";
     }
 
-    @PostMapping("/test-post")
-    public String viewTestNext(String button, Model model, Integer... id) {
+    @PostMapping("/test-post-view")
+    public String testPostNext(String button, Model model, Integer... id) {
         if (!testService.isTestRunning())
             return "redirect:/";
 
@@ -73,10 +78,8 @@ public class QuestionController {
 
         if (button.equals("Закончить")) {
             testResultService.addResult(testService.getQuestion().getIDQuestion(), id);
-            model.addAttribute("resultQuest", testResultService.getResultQuest());
-            return "test-end";
+            return "redirect:/test-end";
         }
-
         return "redirect:/test-view";
     }
 
