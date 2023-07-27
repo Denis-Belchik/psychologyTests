@@ -28,14 +28,4 @@ public class Question {
         return answers;
     }
 
-    @Getter
-    @Setter
-    @ToString
-    @EqualsAndHashCode
-    @NoArgsConstructor
-    public static class PossibleAnswer {
-        private int id;
-        private String answer;
-    }
-
 }

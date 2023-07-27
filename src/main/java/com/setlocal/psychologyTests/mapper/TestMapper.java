@@ -1,7 +1,7 @@
 package com.setlocal.psychologyTests.mapper;
 
 import com.setlocal.psychologyTests.model.Question;
-import com.setlocal.psychologyTests.model.Question.PossibleAnswer;
+import com.setlocal.psychologyTests.model.PossibleAnswer;
 import com.setlocal.psychologyTests.model.Test;
 import org.springframework.jdbc.core.RowMapper;
 
