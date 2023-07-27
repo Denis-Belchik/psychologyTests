@@ -12,13 +12,13 @@ public class Question {
         CHECKBOX
     }
 
-    private final int ID;
+    private int ID;
 
-    private final String bodyQuestion;
+    private String bodyQuestion;
 
-    private final TypeAnswer type;
+    private TypeAnswer type;
 
-    private final List<PossibleAnswer> answers = new ArrayList<>();
+    private List<PossibleAnswer> answers = new ArrayList<>();
 
     public Question(Integer ID, String bodyQuestion, TypeAnswer type, PossibleAnswer... possibleAnswer) {
         this.ID = ID;
@@ -27,11 +27,40 @@ public class Question {
         this.type = type;
     }
 
-    public int getIDQuestion(){
+    public Question() {
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+               "ID=" + ID +
+               ", bodyQuestion='" + bodyQuestion + '\'' +
+               ", type=" + type +
+               ", answers=" + answers +
+               '}';
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setBodyQuestion(String bodyQuestion) {
+        this.bodyQuestion = bodyQuestion;
+    }
+
+    public void setType(TypeAnswer type) {
+        this.type = type;
+    }
+
+    public void setAnswers(List<PossibleAnswer> answers) {
+        this.answers = answers;
+    }
+
+    public int getIDQuestion() {
         return ID;
     }
 
-    public TypeAnswer getType(){
+    public TypeAnswer getType() {
         return type;
     }
 
@@ -45,21 +74,39 @@ public class Question {
     }
 
     public static class PossibleAnswer {
-        private final String possibleAnswer;
-        private final int ID;
+        private int ID;
+        private String answer;
 
         public PossibleAnswer(int ID, String answerBody) {
             this.ID = ID;
-            this.possibleAnswer = answerBody;
+            this.answer = answerBody;
         }
 
-        public String getPossibleAnswer() {
-            return possibleAnswer;
+        public PossibleAnswer() {
+        }
+
+        public void setID(int ID) {
+            this.ID = ID;
+        }
+
+        public void setAnswer(String answer) {
+            this.answer = answer;
+        }
+
+        public String getAnswer() {
+            return answer;
         }
 
         public int getID() {
             return ID;
         }
 
+        @Override
+        public String toString() {
+            return "PossibleAnswer{" +
+                   "ID=" + ID +
+                   ", answer='" + answer + '\'' +
+                   '}';
+        }
     }
 }

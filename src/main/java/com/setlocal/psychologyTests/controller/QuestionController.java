@@ -65,7 +65,7 @@ public class QuestionController {
     }
 
     @PostMapping("/test-post-view")
-    public String testPostNext(String button, Model model, Integer... id) {
+    public String testPostNext(String button, Integer... id) {
         if (!testService.isTestRunning())
             return "redirect:/";
 

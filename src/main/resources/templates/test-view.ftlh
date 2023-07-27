@@ -189,7 +189,7 @@
         <#if type == "RADIO">
 
             <#list answers as answer>
-                <label class="container">${answer.possibleAnswer}
+                <label class="container">${answer.answer}
                     <input type="radio" name="id" value="${answer.ID}">
                     <span class="checkmark"></span>
                 </label>
@@ -198,7 +198,7 @@
         <#else>
 
             <#list answers as answer>
-                <label class="containerCheckbox">${answer.possibleAnswer}
+                <label class="containerCheckbox">${answer.answer}
                     <input type="checkbox" name="id" value="${answer.ID}">
                     <span class="checkmarkCheckbox"></span>
                 </label>

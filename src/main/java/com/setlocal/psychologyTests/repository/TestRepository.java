@@ -1,70 +1,47 @@
 package com.setlocal.psychologyTests.repository;
 
+import com.setlocal.psychologyTests.Mapper.TestMapper;
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
+import org.springframework.boot.autoconfigure.jdbc.JdbcProperties;
 import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 @Scope("session")
 public class TestRepository {
 
+    private final String FIND_TEST_BY_ID_SQL = """
+            SELECT t.id_t,
+                t.title_test,
+                q.id_q,
+                q.body_question,
+                q.type,
+                pa.position,
+                pa.answer
+            FROM psychology_tests.test AS t
+            LEFT JOIN psychology_tests.question AS q on t.id_t = q.test_id
+            LEFT JOIN psychology_tests.possible_answer AS pa on q.id_q = pa.question_id
+            WHERE t.id_t = ?
+            """;
+
     private Test test;
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public TestRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public void init(int id) {
         test = new Test();
-        if (id == 1) {
-            test.setTitleTest("Первое тестирование");
-            test.setLengthTest(4);
-            test.getQuestionList().add(new Question(1, "Вопрос1", Question.TypeAnswer.RADIO,
-                    new Question.PossibleAnswer(1, "Вопрос1, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос1, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос1, Ответ3"),
-                    new Question.PossibleAnswer(4, "Вопрос1, Ответ4")));
-            test.getQuestionList().add(new Question(2, "Вопрос2", Question.TypeAnswer.RADIO,
-                    new Question.PossibleAnswer(1, "Вопрос2, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос2, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос2, Ответ3"),
-                    new Question.PossibleAnswer(4, "Вопрос2, Ответ4"),
-                    new Question.PossibleAnswer(5, "Вопрос2, Ответ5")));
-            test.getQuestionList().add(new Question(3, "Вопрос3", Question.TypeAnswer.CHECKBOX,
-                    new Question.PossibleAnswer(1, "Вопрос3, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос3, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос3, Ответ3"),
-                    new Question.PossibleAnswer(4, "Вопрос3, Ответ4")));
-            test.getQuestionList().add(new Question(4, "Вопрос4", Question.TypeAnswer.RADIO,
-                    new Question.PossibleAnswer(1, "Вопрос4, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос4, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос4, Ответ3"),
-                    new Question.PossibleAnswer(4, "Вопрос4, Ответ4")));
-        } else if (id == 2) {
-            test.setTitleTest("Второе тестирование");
-            test.setLengthTest(5);
-            test.getQuestionList().add(new Question(1, "Вопрос1", Question.TypeAnswer.CHECKBOX,
-                    new Question.PossibleAnswer(1, "Вопрос1, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос1, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос1, Ответ3"),
-                    new Question.PossibleAnswer(4, "Вопрос1, Ответ4")));
-            test.getQuestionList().add(new Question(2, "Вопрос2", Question.TypeAnswer.RADIO,
-                    new Question.PossibleAnswer(1, "Вопрос2, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос2, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос2, Ответ3"),
-                    new Question.PossibleAnswer(4, "Вопрос2, Ответ4")));
-            test.getQuestionList().add(new Question(3, "Вопрос3", Question.TypeAnswer.CHECKBOX,
-                    new Question.PossibleAnswer(1, "Вопрос3, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос3, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос3, Ответ3"),
-                    new Question.PossibleAnswer(4, "Вопрос3, Ответ4")));
-            test.getQuestionList().add(new Question(4, "Вопрос4", Question.TypeAnswer.CHECKBOX,
-                    new Question.PossibleAnswer(1, "Вопрос4, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос4, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос4, Ответ3")));
-            test.getQuestionList().add(new Question(5, "Вопрос5", Question.TypeAnswer.RADIO,
-                    new Question.PossibleAnswer(1, "Вопрос5, Ответ1"),
-                    new Question.PossibleAnswer(2, "Вопрос5, Ответ2"),
-                    new Question.PossibleAnswer(3, "Вопрос5, Ответ3"),
-                    new Question.PossibleAnswer(4, "Вопрос5, Ответ4")));
-        }
+        List<Question> question = new ArrayList<>();
+        test = jdbcTemplate.queryForObject(FIND_TEST_BY_ID_SQL, new Object[]{id}, new TestMapper());
+
     }
 
     public Test getTest() {
