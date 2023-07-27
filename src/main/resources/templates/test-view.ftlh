@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="ru">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<#--    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">-->
     <title>Тестирование</title>
 </head>
 <style>
@@ -190,7 +190,7 @@
 
             <#list answers as answer>
                 <label class="container">${answer.answer}
-                    <input type="radio" name="id" value="${answer.ID}">
+                    <input type="radio" name="id" value="${answer.id}">
                     <span class="checkmark"></span>
                 </label>
             </#list>
@@ -199,7 +199,7 @@
 
             <#list answers as answer>
                 <label class="containerCheckbox">${answer.answer}
-                    <input type="checkbox" name="id" value="${answer.ID}">
+                    <input type="checkbox" name="id" value="${answer.id}">
                     <span class="checkmarkCheckbox"></span>
                 </label>
             </#list>
@@ -207,13 +207,13 @@
         </#if>
 
         <#if position != 0>
-            <input class="button" type="submit" name="button" value="Предыдущий">
+            <input class="button" type="submit" name="button" value=${buttonPref}>
         </#if>
 
         <#if position == sizeTest - 1>
-            <input class="button" type="submit" name="button" value="Закончить">
+            <input class="button" type="submit" name="button" value=${buttonEnd}>
         <#else>
-            <input class="button" type="submit" name="button" value="Следующий">
+            <input class="button" type="submit" name="button" value=${buttonNext}>
         </#if>
 
     </fieldset>

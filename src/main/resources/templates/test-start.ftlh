@@ -43,20 +43,20 @@
 </style>
 <body>
 <h2>Вы можете пройти тесты:</h2>
-<form method="post" action="/test-post-start">
-    <fieldset>
-        <input type="hidden" name="id" value="1">
-        <input class="button" type="submit" name="button" value="Начать 1">
-        Тестирование 1
-    </fieldset>
-</form>
-<br>
-<form method="post" action="/test-post-start">
-    <fieldset>
-        <input type="hidden" name="id" value="2">
-        <input class="button" type="submit" name="button" value="Начать 2">
-        Тестирование 2
-    </fieldset>
-</form>
+<#assign id = 1>
+<#list titles as title>
+
+    <form method="post" action="/test-post-start">
+        <fieldset>
+            <input type="hidden" name="id" value=${id}>
+            <input class="button" type="submit" name="button" value="Начать">
+            ${title}
+        </fieldset>
+    </form>
+    <br>
+    <#assign id++>
+
+</#list>
+
 </body>
 </html>

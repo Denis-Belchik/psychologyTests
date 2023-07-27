@@ -1,26 +1,71 @@
 package com.setlocal.psychologyTests.service;
 
 import com.setlocal.psychologyTests.model.Question;
+import com.setlocal.psychologyTests.model.Test;
+import com.setlocal.psychologyTests.repository.TestRepository;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
-public interface TestService {
+import java.util.List;
 
-    Question getQuestion();
+@Service
+@Scope("session")
+@RequiredArgsConstructor
+public class TestService {
 
-    String getTitle();
+    @Getter
+    private int position = 0;
+    @Getter
+    private boolean isRun = false;
+    private Test test;
+    private final TestRepository testRepository;
 
-    boolean isTestRunning();
+    public void testRun(int id) {
+        testRepository.initTest(id);
+        test = testRepository.getTest();
+        if (test.getLength() > 0) {
+            isRun = true;
+        } else {
+            testStop();
+        }
+    }
 
-    void testRun(int id);
+    public void testStop() {
+        position = 0;
+        test = null;
+    }
 
-    void testStop();
+    public void nextPosition() {
+        if (position < test.getLength())
+            position++;
+    }
 
-    void nextPosition();
+    public void prefPosition() {
+        if (position > 0)
+            position--;
+    }
 
-    void prefPosition();
+    public Question getQuestion() {
+        if (test.getLength() > position)
+            return test.getQuestions().get(position);
+        return null;
+    }
 
-    Integer getPosition();
+    public Question.TypeAnswer getQuestionType() {
+        return test.getQuestions().get(position).getType();
+    }
 
-    Integer getSize();
+    public String getTestTitle() {
+        return test.getTitle();
+    }
 
-    Question.TypeAnswer getType();
+    public Integer getTestSize() {
+        return test.getLength();
+    }
+
+    public List<String> getListTitleTest() {
+        return testRepository.getListTitleTest();
+    }
 }
