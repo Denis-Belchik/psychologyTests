@@ -1,4 +1,4 @@
-package com.setlocal.psychologyTests.Mapper;
+package com.setlocal.psychologyTests.mapper;
 
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Question.PossibleAnswer;
@@ -17,21 +17,21 @@ public class TestMapper implements RowMapper<Test> {
         Test test = new Test();
         Question question = new Question();
         List<Question> questionList = new ArrayList<>();
-        PossibleAnswer possibleAnswer = new PossibleAnswer();
+        PossibleAnswer possibleAnswer;
         List<PossibleAnswer> possibleAnswerList = new ArrayList<>();
         int id_q = 1;
         boolean flag = true;
         test.setId(rs.getInt("id_t"));
-        test.setTitleTest(rs.getString("title_test"));
+        test.setTitle(rs.getString("title_test"));
         do {
             possibleAnswer = new PossibleAnswer();
-            possibleAnswer.setID(rs.getInt("position"));
+            possibleAnswer.setId(rs.getInt("position"));
             possibleAnswer.setAnswer(rs.getString("answer"));
             if (rs.getInt("id_q") == id_q) {
                 possibleAnswerList.add(possibleAnswer);
                 if (flag) {
                     question = new Question();
-                    question.setID(rs.getInt("id_q"));
+                    question.setId(rs.getInt("id_q"));
                     question.setBodyQuestion(rs.getString("body_question"));
                     question.setType(Question.TypeAnswer.valueOf(rs.getString("type")));
                     questionList.add(question);
@@ -46,8 +46,8 @@ public class TestMapper implements RowMapper<Test> {
             }
         } while (rs.next());
         question.setAnswers(possibleAnswerList);
-        test.setQuestionList(questionList);
-//        System.out.println(test);
+        test.setQuestions(questionList);
+        test.setLength(questionList.size());
         return test;
     }
 }

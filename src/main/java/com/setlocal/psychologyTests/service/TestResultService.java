@@ -1,18 +1,31 @@
 package com.setlocal.psychologyTests.service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
-public interface TestResultService {
+import java.util.*;
 
-    void addResult(Integer position, Integer[] id);
+@Service
+@Scope("session")
+public class TestResultService {
 
-    Map<Integer, List<Integer>> getResultTest();
+    private final Map<Integer, List<Integer>> repositoryResultTest = new LinkedHashMap<>();
 
-    Set<Integer> getNumberQuest();
+    public void addResult(Integer position, Integer[] id) {
+        List<Integer> list;
+        if (id == null) {
+            list = new ArrayList<>(List.of(0));
+        } else {
+            list = new ArrayList<>(List.of(id));
+        }
+        repositoryResultTest.put(position, list);
+    }
 
-    Collection<List<Integer>> getResultQuest();
+    public Collection<List<Integer>> getResultQuest() {
+        return repositoryResultTest.values();
+    }
 
+    public void resultClear() {
+        repositoryResultTest.clear();
+    }
 }
