@@ -19,7 +19,7 @@ public class TestMapper implements RowMapper<Test> {
         List<Question> questionList = new ArrayList<>();
         PossibleAnswer possibleAnswer;
         List<PossibleAnswer> possibleAnswerList = new ArrayList<>();
-        int id_q = 1;
+        int id_q = rs.getInt("id_q");
         boolean flag = true;
         test.setId(rs.getInt("id_t"));
         test.setTitle(rs.getString("title_test"));
