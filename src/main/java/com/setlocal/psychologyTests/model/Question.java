@@ -2,8 +2,6 @@ package com.setlocal.psychologyTests.model;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -11,6 +9,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class Question {
 
     public enum TypeAnswer {
@@ -19,13 +18,8 @@ public class Question {
     }
 
     private int id;
+    private int test_id;
     private String bodyQuestion;
     private TypeAnswer type;
-    private List<PossibleAnswer> answers = new ArrayList<>();
-
-    public List<PossibleAnswer> getAnswersList() {
-        Collections.shuffle(answers);
-        return answers;
-    }
-
+    private List<Answer> answers;
 }

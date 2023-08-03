@@ -10,11 +10,9 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 public class Test {
-
     private int id;
     private String title;
-    private int length;
     private List<Question> questions = new ArrayList<>();
-
 }

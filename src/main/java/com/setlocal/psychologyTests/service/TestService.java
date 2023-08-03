@@ -1,8 +1,10 @@
 package com.setlocal.psychologyTests.service;
 
+import com.setlocal.psychologyTests.dto.QuestionDto;
+import com.setlocal.psychologyTests.dto.TestDto;
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
-import com.setlocal.psychologyTests.repository.TestRepository;
+import com.setlocal.psychologyTests.repository.TestDao;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
@@ -10,22 +12,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Getter
 @Service
 @Scope("session")
 @RequiredArgsConstructor
 public class TestService {
 
-    @Getter
     private int position = 0;
-    @Getter
     private boolean isRun = false;
-    private Test test;
-    private final TestRepository testRepository;
+    private TestDto testDto;
+
+    private final TestDao testDao;
 
     public void testRun(int id) {
-        testRepository.initTest(id);
-        test = testRepository.getTest();
-        if (test.getLength() > 0) {
+        Test test = testDao.findById(id);
+        testDto = TestDto.convertToDto(test);
+        if (testDto.getLength() > 0) {
             isRun = true;
         } else {
             testStop();
@@ -34,11 +36,11 @@ public class TestService {
 
     public void testStop() {
         position = 0;
-        test = null;
+        testDto = null;
     }
 
     public void nextPosition() {
-        if (position < test.getLength())
+        if (position < testDto.getLength())
             position++;
     }
 
@@ -47,25 +49,25 @@ public class TestService {
             position--;
     }
 
-    public Question getQuestion() {
-        if (test.getLength() > position)
-            return test.getQuestions().get(position);
+    public QuestionDto getQuestion() {
+        if (testDto.getLength() > position)
+            return testDto.getQuestions().get(position);
         return null;
     }
 
     public Question.TypeAnswer getQuestionType() {
-        return test.getQuestions().get(position).getType();
+        return testDto.getQuestions().get(position).getType();
     }
 
     public String getTestTitle() {
-        return test.getTitle();
+        return testDto.getTitle();
     }
 
     public Integer getTestSize() {
-        return test.getLength();
+        return testDto.getLength();
     }
 
     public List<String> getListTitleTest() {
-        return testRepository.getListTitleTest();
+        return testDao.getListTitleTest();
     }
 }

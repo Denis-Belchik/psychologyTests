@@ -7,7 +7,8 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
-public class PossibleAnswer {
+public class Answer {
     private int id;
+    private int question_id;
     private String answer;
 }

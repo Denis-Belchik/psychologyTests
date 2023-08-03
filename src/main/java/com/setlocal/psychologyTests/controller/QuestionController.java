@@ -1,6 +1,6 @@
 package com.setlocal.psychologyTests.controller;
 
-import com.setlocal.psychologyTests.model.Question;
+import com.setlocal.psychologyTests.dto.QuestionDto;
 import com.setlocal.psychologyTests.service.TestResultService;
 import com.setlocal.psychologyTests.service.TestService;
 import lombok.RequiredArgsConstructor;
@@ -51,12 +51,12 @@ public class QuestionController {
     public String viewTest(Model model) {
         if (!testService.isRun())
             return "redirect:/";
-        Question question = testService.getQuestion();
-        if (question != null) {
+        QuestionDto questionDto = testService.getQuestion();
+        if (questionDto != null) {
             model.addAttribute("title", testService.getTestTitle());
-            model.addAttribute("quest", question.getBodyQuestion());
+            model.addAttribute("quest", questionDto.getBodyQuestion());
             model.addAttribute("type", testService.getQuestionType());
-            model.addAttribute("answers", question.getAnswersList());
+            model.addAttribute("answers", questionDto.getAnswers());
             model.addAttribute("position", testService.getPosition());
             model.addAttribute("sizeTest", testService.getTestSize());
             model.addAttribute("buttonNext", buttonNext);
@@ -70,6 +70,7 @@ public class QuestionController {
     @PostMapping("/test-post-start")
     public String testPostStart(Integer id) {
         testService.testRun(id);
+
         return "redirect:/test-view";
     }
 
