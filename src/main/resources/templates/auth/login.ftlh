@@ -65,6 +65,11 @@ body {
 <div class="registration-cssave">
     <form method="post" action="/process_login">
         <h3 class="text-center">Вход</h3>
+
+        <#if error?has_content>
+            <h3 class="text-center">Неправельное имя или пароль</h3>
+        </#if>
+
         <div class="form-group">
             <input class="form-control item" type="text" name="username" maxlength="15" minlength="4" pattern="^[a-zA-Z0-9_.-]*$" id="username" placeholder="Логин" required>
         </div>

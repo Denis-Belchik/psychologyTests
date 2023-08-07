@@ -38,6 +38,7 @@ public class PersonDao {
     }
 
     public Integer savePerson(Person person){
+        System.out.println("person = " + person);
         return jdbcTemplate.update(SAVE_PERSON, person.getUsername(), person.getPassword());
     }
 

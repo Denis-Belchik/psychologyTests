@@ -26,14 +26,17 @@ public class SecurityConfig  {
                 .csrf().disable()
                 .authorizeHttpRequests( a -> a
                         .requestMatchers("/auth/login" ,
-                                "/auth/registration", "/").permitAll()
+                                "/auth/registration",
+                                "/",
+                                "/error")
+                        .permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin()
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/", true)
-                .failureUrl("/auth/login")
+                .failureUrl("/auth/login?error=1")
                 .and().build();
     }
 
