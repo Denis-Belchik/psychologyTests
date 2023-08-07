@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Scope("session")
+//@Scope("session")
 @RequiredArgsConstructor
 @Repository
 public class TestDao {

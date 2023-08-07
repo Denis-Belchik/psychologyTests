@@ -14,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Service
-@Scope("session")
+//@Scope("session")
 @RequiredArgsConstructor
 public class TestService {
 

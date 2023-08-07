@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@Scope("session")
+//@Scope("session")
 @RequiredArgsConstructor
 public class QuestionController {
 
