@@ -2,10 +2,7 @@ package com.setlocal.psychologyTests.model;
 
 import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 public class Answer {
     private int id;

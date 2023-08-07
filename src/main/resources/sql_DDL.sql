@@ -1,41 +1,51 @@
-CREATE SCHEMA psychology_tests;
+create schema psychology_tests;
 
-DROP TABLE answer;
+drop TABLE answer;
 
-DROP TABLE question;
+drop TABLE question;
 
-DROP TABLE test;
+drop TABLE test;
 
-CREATE TYPE type_answer AS ENUM ('RADIO', 'CHECKBOX');
+create TYPE type_answer AS ENUM ('RADIO', 'CHECKBOX');
 
-CREATE TABLE test
+create table test
 (
-    id_t       SERIAL PRIMARY KEY,
-    title_test VARCHAR(255) NOT NULL
+    id_t       serial primary key,
+    title_test varchar(255) not null
 );
 
-CREATE TABLE question
+create table question
 (
-    id_q          SERIAL PRIMARY KEY,
-    test_id       INT REFERENCES test (id_t) NOT NULL,
-    body_question VARCHAR(255)               NOT NULL,
-    type          type_answer                NOT NULL
+    id_q          serial primary key,
+    test_id       int references test (id_t) not null,
+    body_question varchar(255)               not null,
+    type          type_answer                not null
 );
 
-CREATE TABLE answer
+create table answer
 (
-    id_a       SERIAL PRIMARY KEY,
-    question_id INT REFERENCES question (id_q) NOT NULL,
+    id_a       serial primary key,
+    question_id int references question (id_q) not null,
 --     position    INT                            NOT NULL,
-    answer      VARCHAR(255)                   NOT NULL
+    answer      varchar(255)                   not null
 );
 
-INSERT INTO test (title_test)
-VALUES ('ТЕСТИРОВАНИЕ ПЕРВОЕ ЕПТА'),
+create table person(
+    username varchar(15) primary key not null ,
+    password varchar(15) not null,
+    enabled smallint not null
+);
+
+insert into person (username, "password", enabled)
+values ('garet', '123', 1),
+        ('svarog', '123', 1);
+
+insert into test (title_test)
+values ('ТЕСТИРОВАНИЕ ПЕРВОЕ ЕПТА'),
        ('ТЕСТИРОВАНИЕ ВРОТОЕ ЕПТА');
 
-INSERT INTO question(test_id, body_question, type)
-VALUES (1, 'БД ТЕСТ 1 Вопрос 1', 'RADIO'),
+insert into question(test_id, body_question, type)
+values (1, 'БД ТЕСТ 1 Вопрос 1', 'RADIO'),
        (1, 'БД ТЕСТ 1 Вопрос 2', 'CHECKBOX'),
        (1, 'БД ТЕСТ 1 Вопрос 3', 'CHECKBOX'),
        (1, 'БД ТЕСТ 1 Вопрос 4', 'RADIO'),
@@ -45,8 +55,8 @@ VALUES (1, 'БД ТЕСТ 1 Вопрос 1', 'RADIO'),
        (2, 'БД ТЕСТ 2 Вопрос 4', 'RADIO'),
        (2, 'БД ТЕСТ 2 Вопрос 5', 'CHECKBOX');
 
-INSERT INTO answer(question_id, answer)
-VALUES (1, 'БД Вопрос 1 ответ 1'),
+insert into answer(question_id, answer)
+values (1, 'БД Вопрос 1 ответ 1'),
        (1, 'БД Вопрос 1 ответ 2'),
        (2, 'БД Вопрос 2 ответ 1'),
        (2, 'БД Вопрос 2 ответ 2'),
@@ -69,39 +79,43 @@ VALUES (1, 'БД Вопрос 1 ответ 1'),
        (9, 'БД ответ 1'),
        (9, 'БД ответ 2');
 
-SELECT *
-FROM question
-         LEFT JOIN answer pa on question.id_q = pa."question_id"
-WHERE question.id_q = 1;
+select *
+from question
+         left join answer pa on question.id_q = pa."question_id"
+where question.id_q = 1;
 
-SELECT q.id_q,
+select q.id_q,
        q.body_question,
        q.type,
        a.id_a,
        a.answer
-FROM psychology_tests.question AS q
-         LEFT JOIN psychology_tests.answer AS a on q.id_q = a."question_id"
-WHERE q.id_q = 1;
+from psychology_tests.question as q
+         left join psychology_tests.answer as a on q.id_q = a."question_id"
+where q.id_q = 1;
 
-SELECT t.id_t,
+select t.id_t,
        t.title_test,
        q.id_q,
        q.body_question,
        q.type,
        a.id_a,
        a.answer
-FROM test AS t
-         LEFT JOIN psychology_tests.question AS q on t.id_t = q.test_id
-         LEFT JOIN answer AS a on q.id_q = a.question_id
-WHERE t.id_t = 2;
+from test as t
+         left join psychology_tests.question as q on t.id_t = q.test_id
+         left join answer as a on q.id_q = a.question_id
+where t.id_t = 2;
 
-SELECT id_q,
+select id_q,
        body_question,
        type
-FROM psychology_tests.question
-WHERE test_id = 1;
+from psychology_tests.question
+where test_id = 1;
 
-
+SELECT username,
+    password,
+    enabled
+FROM person
+where username = 'garet'
 
 
 

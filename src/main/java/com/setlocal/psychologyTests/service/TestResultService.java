@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-@Scope("session")
+//@Scope("session")
 public class TestResultService {
 
     private final Map<Integer, List<Integer>> repositoryResultTest = new LinkedHashMap<>();
