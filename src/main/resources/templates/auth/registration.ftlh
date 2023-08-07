@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,14 +70,22 @@ a {
 </head>
 <body>
 
-<form method="post" action="/auth/registration">
+<form method="post" action="<@spring.url '/auth/registration'/>">
   <div class="container">
     <h1>Регистрация</h1>
     <p>Пожалуйста заполните все поля.</p>
     <hr>
 
-     <label for="text"><b>Имя</b></label> ->
-     <input type="text" placeholder="Имя" name="username" required> ->
+        <@spring.bind 'person.username'/>
+
+          <#list spring.status.errorMessages as error>
+              <span class="error">${error}</span>
+              <br>
+          </#list>
+
+
+     <label for="text"><b>Имя</b></label>
+     <input type="text" placeholder="Имя" name="username" required>
 
     <label for="psw"><b>Пароль</b></label>
     <input type="password" placeholder="Пароль" name="password" required>

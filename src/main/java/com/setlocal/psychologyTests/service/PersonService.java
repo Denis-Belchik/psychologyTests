@@ -17,8 +17,8 @@ public class PersonService {
         return personDao.findByUsername(username);
     }
 
-    public void savePerson(Person person){
-        personDao.savePerson(person);
+    public Integer savePerson(Person person){
+        return personDao.savePerson(person);
     }
 
 }
