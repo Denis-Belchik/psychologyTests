@@ -1,10 +1,11 @@
 package com.setlocal.psychologyTests.controller;
 
-import com.setlocal.psychologyTests.model.Person;
+import com.setlocal.psychologyTests.dto.PersonDTO;
 import com.setlocal.psychologyTests.service.PersonService;
 import com.setlocal.psychologyTests.util.PersonValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@Scope("session")
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
@@ -26,19 +28,18 @@ public class AuthController {
     }
 
     @GetMapping("/registration")
-    public String registrationPages(@ModelAttribute("person") Person person) {
-
+    public String registrationPages(@ModelAttribute("personDTO") PersonDTO personDTO) {
         return "auth/registration";
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("person") @Valid Person person,
+    public String registration(@ModelAttribute("personDTO") @Valid PersonDTO personDTO,
                                BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
-
-        if (bindingResult.hasErrors())
+        personValidator.validate(personDTO, bindingResult);
+        if (bindingResult.hasErrors()) {
             return "/auth/registration";
-        personService.savePerson(person);
+        }
+        personService.savePerson(personDTO);
         return "/auth/login";
     }
 

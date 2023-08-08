@@ -1,5 +1,6 @@
 package com.setlocal.psychologyTests.util;
 
+import com.setlocal.psychologyTests.dto.PersonDTO;
 import com.setlocal.psychologyTests.model.Person;
 import com.setlocal.psychologyTests.service.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +16,17 @@ public class PersonValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Person.class.equals(clazz);
+        return PersonDTO.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        Person person = (Person) target;
-        if (personService.loadUserByUsername(person.getUsername()).isEmpty())
-            return;
-        errors.rejectValue("username", "", "Существует");
+        PersonDTO personDTO = (PersonDTO) target;
+        if (!personService.loadUserByUsername(personDTO.getUsername()).isEmpty()) {
+            errors.rejectValue("username", "", "Существует");
+        }
+        if (!personDTO.getPassword().equals(personDTO.getConfirmPassword())) {
+            errors.rejectValue("password", "", "Разные");
+        }
     }
 }

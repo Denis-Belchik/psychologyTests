@@ -37,6 +37,10 @@ public class SecurityConfig  {
                 .loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/auth/login?error=1")
+                .and()
+                .logout()
+                .logoutUrl("/auth/logout")
+                .logoutSuccessUrl("/")
                 .and().build();
     }
 

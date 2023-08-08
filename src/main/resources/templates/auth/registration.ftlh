@@ -76,25 +76,57 @@ a {
     <p>Пожалуйста заполните все поля.</p>
     <hr>
 
-        <@spring.bind 'person.username'/>
-
+        <@spring.bind 'personDTO.username'/>
           <#list spring.status.errorMessages as error>
               <span class="error">${error}</span>
               <br>
           </#list>
 
+     <label for="text"><b>Логин</b></label>
+     <input type="text" placeholder="Логин" name="username" required>
 
-     <label for="text"><b>Имя</b></label>
-     <input type="text" placeholder="Имя" name="username" required>
+        <@spring.bind 'personDTO.email'/>
+          <#list spring.status.errorMessages as error>
+              <span class="error">${error}</span>
+              <br>
+          </#list>
+
+     <label for="text"><b>Email</b></label>
+     <input type="text" placeholder="Email" name="email" required>
+
+        <@spring.bind 'personDTO.lastName'/>
+          <#list spring.status.errorMessages as error>
+              <span class="error">${error}</span>
+              <br>
+          </#list>
+
+     <label for="text"><b>Фамилия</b></label>
+     <input type="text" placeholder="Имя" name="lastName" required>
+
+        <@spring.bind 'personDTO.password'/>
+          <#list spring.status.errorMessages as error>
+              <span class="error">${error}</span>
+              <br>
+          </#list>
 
     <label for="psw"><b>Пароль</b></label>
     <input type="password" placeholder="Пароль" name="password" required>
+
+        <@spring.bind 'personDTO.confirmPassword'/>
+          <#list spring.status.errorMessages as error>
+              <span class="error">${error}</span>
+              <br>
+          </#list>
+
+    <label for="psw"><b>Повторите пароль</b></label>
+    <input type="password" placeholder="Пароль" name="confirmPassword" required>
 
     <button type="submit" class="registerbtn">Регистрация</button>
   </div>
 
   <div class="container signin">
     <p>У вас уже есть аккаунт? <a href="/auth/login">Войти</a>.</p>
+    <p><a href="/">Вернуться</a>.</p>
   </div>
 </form>
 
