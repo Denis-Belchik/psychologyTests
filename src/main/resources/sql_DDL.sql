@@ -31,14 +31,16 @@ create table answer
 );
 
 create table person(
-    username varchar(15) primary key not null ,
+    email varchar(25) primary key not null,
+    username varchar(15)  not null ,
+    lastname varchar(15) not null,
     password varchar(15) not null,
     enabled smallint not null
 );
 
-insert into person (username, "password", enabled)
-values ('garet', '123', 1),
-        ('svarog', '123', 1);
+insert into person (email, username, lastname, "password", enabled)
+values ('qwe@mail.ru', 'garet', 'Петров', '123', 1),
+        ('asd@mail.ru', 'svarog', 'Иванов',  '123', 1);
 
 insert into test (title_test)
 values ('ТЕСТИРОВАНИЕ ПЕРВОЕ ЕПТА'),
@@ -111,10 +113,10 @@ select id_q,
 from psychology_tests.question
 where test_id = 1;
 
-SELECT username,
+select username,
     password,
     enabled
-FROM person
+from person
 where username = 'garet'
 
 

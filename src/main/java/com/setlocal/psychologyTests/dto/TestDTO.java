@@ -5,23 +5,21 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class TestDto {
+public class TestDTO {
     private int id;
     private String title;
     private int length;
-    private List<QuestionDto> questions;
+    private List<QuestionDTO> questions;
 
-    public static TestDto convertToDto(Test test) {
-        TestDto testDto = new TestDto();
+    public static TestDTO convertToDto(Test test) {
+        TestDTO testDto = new TestDTO();
         if (test != null) {
             testDto.setId(test.getId());
             testDto.setTitle(test.getTitle());
-            testDto.setQuestions(QuestionDto.convertToListDto(test.getQuestions()));
+            testDto.setQuestions(QuestionDTO.convertToListDto(test.getQuestions()));
             testDto.setLength(test.getQuestions().size());
         }
         return testDto;

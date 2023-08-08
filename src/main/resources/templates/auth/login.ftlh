@@ -71,16 +71,18 @@ body {
         </#if>
 
         <div class="form-group">
-            <input class="form-control item" type="text" name="username" maxlength="15" minlength="4" pattern="^[a-zA-Z0-9_.-]*$" id="username" placeholder="Логин" required>
+            <input class="form-control item" type="text" name="username" id="username" placeholder="Логин" required>
         </div>
         <div class="form-group">
-            <input class="form-control item" type="password" name="password" minlength="3" id="password" placeholder="Пароль" required>
+            <input class="form-control item" type="password" name="password" id="password" placeholder="Пароль" required>
         </div>
         <div class="form-group">
             <button class="btn btn-primary btn-block create-account" type="submit">Вход в аккаунт</button>
         </div>
+        <p><a href="/">Вернуться</a>.</p>
     </form>
 </div>
+
 
 </body>
 

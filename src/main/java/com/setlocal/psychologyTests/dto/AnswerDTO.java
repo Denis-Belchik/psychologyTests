@@ -6,19 +6,17 @@ import lombok.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnswerDto {
+public class AnswerDTO {
     private int id;
     private String answer;
 
-    public static List<AnswerDto> convertToListDto(List<Answer> answers) {
+    public static List<AnswerDTO> convertToListDto(List<Answer> answers) {
         return answers.stream()
                 .map(a -> {
-                    AnswerDto answerDto = new AnswerDto();
+                    AnswerDTO answerDto = new AnswerDTO();
                     answerDto.setId(answers.indexOf(a) + 1);
                     answerDto.setAnswer(a.getAnswer());
                     return answerDto;

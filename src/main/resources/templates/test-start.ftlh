@@ -40,16 +40,60 @@
         opacity: 1;
         transition: 0s
     }
+
+    a {
+    	font-family: Arial, Helvetica, sans-serif;
+    	font-size: 15px;
+    	color: #fafafa;
+    	padding: 8px 18px;
+    	display: inline-block;
+    	text-decoration: none;
+    	border-radius: 3px;
+    	box-shadow: 0px 6px #27ae60;
+    	background: #2ecc71;
+    }
+    a:hover {
+    	background: #36d479;
+    }
+    a:active {
+    	position: relative;
+    	top: 6px;
+    	box-shadow: 0px 0px #23a33d;
+    	background: #23a33d;
+    }
+
 </style>
 <body>
-<h2>Вы можете пройти тесты:</h2>
+
+<#if !username?has_content>
+<div style = "float: right">
+    <a href="/auth/login">Войти</a>
+    <a href="/auth/registration">Зарегистрироваться</a>
+</div>
+<#else>
+<div style = "float: right">
+    <a href="/auth/logout">Выйти</a>
+</div>
+</#if>
+
+<#if !username?has_content>
+ <h2>Чтобы пройти тесты, вы должны войти</h2>
+ <#assign type = "disabled">
+ <#assign clazz = "">
+<#else>
+ <h2>Вы можете пройти тесты:</h2>
+ <#assign type = "">
+ <#assign clazz = "button">
+
+</#if>
+
 <#assign id = 1>
 <#list titles as title>
 
     <form method="post" action="/test-post-start">
         <fieldset>
             <input type="hidden" name="id" value=${id}>
-            <input class="button" type="submit" name="button" value="Начать">
+            <input class="${clazz}" type="submit" name="button" value="Начать" ${type} >
             ${title}
         </fieldset>
     </form>

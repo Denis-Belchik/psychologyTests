@@ -1,6 +1,7 @@
 package com.setlocal.psychologyTests.controller;
 
-import com.setlocal.psychologyTests.dto.QuestionDto;
+import com.setlocal.psychologyTests.dto.QuestionDTO;
+import com.setlocal.psychologyTests.service.PersonService;
 import com.setlocal.psychologyTests.service.TestResultService;
 import com.setlocal.psychologyTests.service.TestService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-//@Scope("session")
+@Scope("session")
 @RequiredArgsConstructor
 public class QuestionController {
 
@@ -29,6 +30,7 @@ public class QuestionController {
     private String buttonEnd;
     private final TestService testService;
     private final TestResultService testResultService;
+    private final PersonService personService;
 
     @GetMapping("/")
     public String main(Model model) {
@@ -36,6 +38,7 @@ public class QuestionController {
             titleList = testService.getListTitleTest();
         }
         model.addAttribute("titles", titleList);
+        model.addAttribute("username", personService.showUserInfo());
         return "test-start";
     }
 
@@ -51,7 +54,7 @@ public class QuestionController {
     public String viewTest(Model model) {
         if (!testService.isRun())
             return "redirect:/";
-        QuestionDto questionDto = testService.getQuestion();
+        QuestionDTO questionDto = testService.getQuestion();
         if (questionDto != null) {
             model.addAttribute("title", testService.getTestTitle());
             model.addAttribute("quest", questionDto.getBodyQuestion());

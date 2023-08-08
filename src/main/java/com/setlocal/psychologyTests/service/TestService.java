@@ -1,7 +1,7 @@
 package com.setlocal.psychologyTests.service;
 
-import com.setlocal.psychologyTests.dto.QuestionDto;
-import com.setlocal.psychologyTests.dto.TestDto;
+import com.setlocal.psychologyTests.dto.QuestionDTO;
+import com.setlocal.psychologyTests.dto.TestDTO;
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
 import com.setlocal.psychologyTests.repository.TestDao;
@@ -14,19 +14,19 @@ import java.util.List;
 
 @Getter
 @Service
-//@Scope("session")
+@Scope("session")
 @RequiredArgsConstructor
 public class TestService {
 
     private int position = 0;
     private boolean isRun = false;
-    private TestDto testDto;
+    private TestDTO testDto;
 
     private final TestDao testDao;
 
     public void testRun(int id) {
         Test test = testDao.findById(id);
-        testDto = TestDto.convertToDto(test);
+        testDto = TestDTO.convertToDto(test);
         if (testDto.getLength() > 0) {
             isRun = true;
         } else {
@@ -49,7 +49,7 @@ public class TestService {
             position--;
     }
 
-    public QuestionDto getQuestion() {
+    public QuestionDTO getQuestion() {
         if (testDto.getLength() > position)
             return testDto.getQuestions().get(position);
         return null;

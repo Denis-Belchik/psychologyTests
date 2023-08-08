@@ -2,13 +2,11 @@ package com.setlocal.psychologyTests.repository;
 
 import com.setlocal.psychologyTests.model.Answer;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//@Scope("session")
 @RequiredArgsConstructor
 @Repository
 public class AnswerDao {
