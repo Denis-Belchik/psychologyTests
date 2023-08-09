@@ -105,4 +105,9 @@ public class QuestionController {
         return "redirect:/test-view";
     }
 
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin";
+    }
+
 }

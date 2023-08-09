@@ -20,16 +20,18 @@ public class PersonDTO {
     private String password;
     @NotEmpty(message = "Пароль не должен быть пустым")
     private String confirmPassword;
-    private byte enabled;
+    private Person.Role role;
+    private boolean enabled;
 
     public static PersonDTO convertToDto(Person person) {
         PersonDTO personDto = new PersonDTO();
         if (person != null) {
             personDto.setEmail(person.getEmail());
+            personDto.setRole(person.getRole());
             personDto.setUsername(person.getUsername());
             personDto.setLastName(person.getLastName());
             personDto.setPassword(person.getPassword());
-            personDto.setEnabled(person.getEnabled());
+            personDto.setEnabled(person.isEnabled());
         }
         return personDto;
     }
@@ -38,10 +40,11 @@ public class PersonDTO {
         Person person = new Person();
         if (personDTO != null) {
             person.setEmail(personDTO.getEmail());
+            person.setRole(personDTO.getRole());
             person.setUsername(personDTO.getUsername());
             person.setLastName(personDTO.getLastName());
             person.setPassword(personDTO.getPassword());
-            person.setEnabled(personDTO.getEnabled());
+            person.setEnabled(personDTO.isEnabled());
         }
         return person;
     }
