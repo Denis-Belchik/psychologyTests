@@ -8,6 +8,8 @@ drop TABLE test;
 
 create TYPE type_answer AS ENUM ('RADIO', 'CHECKBOX');
 
+create TYPE role AS ENUM ('ROLE_USER', 'ROLE_ADMIN');
+
 create table test
 (
     id_t       serial primary key,
@@ -26,17 +28,22 @@ create table answer
 (
     id_a       serial primary key,
     question_id int references question (id_q) not null,
---     position    INT                            NOT NULL,
     answer      varchar(255)                   not null
 );
 
+
 create table person(
-    email varchar(25) primary key not null,
-    username varchar(15)  not null ,
-    lastname varchar(15) not null,
-    password varchar(15) not null,
-    enabled smallint not null
+    username varchar(100) primary key,
+    role role not null,
+    email varchar(100)  not null,
+    lastname varchar(100) not null,
+    password varchar(100) not null,
+    enabled boolean not null
 );
+
+insert into role (role)
+values ('ROLE_ADMIN'),
+        ('ROLE_USER');
 
 insert into person (email, username, lastname, "password", enabled)
 values ('qwe@mail.ru', 'garet', 'Петров', '123', 1),

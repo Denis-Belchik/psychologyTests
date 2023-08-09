@@ -9,14 +9,14 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig  {
+public class SecurityConfig {
 
     private final PersonDetailsService personDetailsService;
 
@@ -24,13 +24,14 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
-                .authorizeHttpRequests( a -> a
-                        .requestMatchers("/auth/login" ,
-                                "/auth/registration",
-                                "/",
-                                "/error")
-                        .permitAll()
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(a -> a
+                                .requestMatchers("/admin").hasRole("ADMIN")
+                                .requestMatchers("/auth/login",
+                                        "/auth/registration",
+                                        "/",
+                                        "/error")
+                                .permitAll()
+                        .anyRequest().hasAnyRole("ADMIN", "USER")
                 )
                 .formLogin()
                 .loginPage("/auth/login")
@@ -53,9 +54,8 @@ public class SecurityConfig  {
     }
 
     @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-//        return new BCryptPasswordEncoder();
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

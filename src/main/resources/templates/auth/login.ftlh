@@ -67,7 +67,7 @@ body {
         <h3 class="text-center">Вход</h3>
 
         <#if error?has_content>
-            <h3 class="text-center">Неправельное имя или пароль</h3>
+            <h3 class="text-center">Неправильное имя или пароль</h3>
         </#if>
 
         <div class="form-group">

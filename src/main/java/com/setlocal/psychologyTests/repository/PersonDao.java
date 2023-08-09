@@ -15,6 +15,7 @@ public class PersonDao {
 
     private static final String FIND_PERSON_BY_NAME = """
             SELECT email,
+                role,
                 username,
                 lastname,
                 password,
@@ -24,8 +25,8 @@ public class PersonDao {
             """;
 
     private static final String SAVE_PERSON = """
-            INSERT INTO psychology_tests.person(email, username, lastname, password, enabled) 
-            VALUES (?, ?, ?, ?, 1)    
+            INSERT INTO psychology_tests.person(email, username, lastname, password, role, enabled) 
+            VALUES (?, ?, ?, ?, cast(? as role), ?)    
             """;
 
     public Optional<Person> findByUsername(String username) {
@@ -35,7 +36,8 @@ public class PersonDao {
             person.setUsername(rs.getString("username"));
             person.setLastName(rs.getString("lastname"));
             person.setPassword(rs.getString("password"));
-            person.setEnabled(rs.getByte("enabled"));
+            person.setRole(Person.Role.valueOf(rs.getString("role")));
+            person.setEnabled(rs.getBoolean("enabled"));
             return person;
         }, username).findAny();
     }
@@ -45,7 +47,9 @@ public class PersonDao {
                 person.getEmail(),
                 person.getUsername(),
                 person.getLastName(),
-                person.getPassword());
+                person.getPassword(),
+                person.getRole().name(),
+                person.isEnabled());
     }
 
 }

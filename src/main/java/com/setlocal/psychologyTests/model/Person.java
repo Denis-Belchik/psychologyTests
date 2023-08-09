@@ -6,9 +6,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Person {
-    private String email;
+
+    public enum Role {
+        ROLE_USER,
+        ROLE_ADMIN
+    }
+
     private String username;
     private String lastName;
+    private Role role;
+    private String email;
     private String password;
-    private byte enabled;
+    private boolean enabled;
 }

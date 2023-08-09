@@ -7,6 +7,7 @@ import com.setlocal.psychologyTests.security.PersonDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class PersonService {
 
     private final PersonDao personDao;
+    private final PasswordEncoder passwordEncoder;
 
     public Optional<Person> loadUserByUsername(String username) {
         return personDao.findByUsername(username);
@@ -23,6 +25,10 @@ public class PersonService {
 
     public Integer savePerson(PersonDTO personDTO) {
         Person person = PersonDTO.convertToEmpty(personDTO);
+        String encoderPass = passwordEncoder.encode(person.getPassword());
+        person.setPassword(encoderPass);
+        person.setEnabled(true);
+        person.setRole(Person.Role.ROLE_USER);
         return personDao.savePerson(person);
     }
 
