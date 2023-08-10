@@ -38,7 +38,7 @@ public class QuestionController {
             titleList = testService.getListTitleTest();
         }
         model.addAttribute("titles", titleList);
-        model.addAttribute("username", personService.showUserInfo());
+        model.addAttribute("personForViewDTO", personService.showUserInfo());
         return "test-start";
     }
 
@@ -105,9 +105,6 @@ public class QuestionController {
         return "redirect:/test-view";
     }
 
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
+
 
 }
