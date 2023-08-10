@@ -65,23 +65,24 @@
 </style>
 <body>
 
-<#if !username?has_content>
+<#if !personForViewDTO?has_content>
 <div style = "float: right">
     <a href="/auth/login">Войти</a>
     <a href="/auth/registration">Зарегистрироваться</a>
 </div>
 <#else>
 <div style = "float: right">
+    <a href="/admin/view">Админка</a>
     <a href="/auth/logout">Выйти</a>
 </div>
 </#if>
 
-<#if !username?has_content>
+<#if !personForViewDTO?has_content>
  <h2>Чтобы пройти тесты, вы должны войти</h2>
  <#assign type = "disabled">
  <#assign clazz = "">
 <#else>
- <h2>Вы можете пройти тесты:</h2>
+ <h2>Здравствуйте ${personForViewDTO.firstName} ${personForViewDTO.lastName}. Вы можете пройти тесты:</h2>
  <#assign type = "">
  <#assign clazz = "button">
 

@@ -1,6 +1,7 @@
 package com.setlocal.psychologyTests.service;
 
 import com.setlocal.psychologyTests.dto.PersonForRegDTO;
+import com.setlocal.psychologyTests.dto.PersonForViewDTO;
 import com.setlocal.psychologyTests.model.Person;
 import com.setlocal.psychologyTests.repository.PersonDao;
 import com.setlocal.psychologyTests.security.PersonDetails;
@@ -11,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,10 +37,16 @@ public class PersonService {
         return personDao.savePerson(person);
     }
 
-    public PersonForRegDTO showUserInfo() {
+    public List<PersonForViewDTO> getAllPerson(){
+        return personDao.findAll().stream()
+                .map(PersonForViewDTO::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public PersonForViewDTO showUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof PersonDetails personDetails) {
-            return personDetails.getPersonForRegDTO();
+            return PersonForViewDTO.convertToDto(personDetails.getPerson());
         }
         return null;
     }

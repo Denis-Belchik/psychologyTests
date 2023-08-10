@@ -23,7 +23,7 @@ public class PersonDetailsService implements UserDetailsService {
         Optional<Person> person = personDao.findByUsername(username);
         if (person.isEmpty())
             throw new UsernameNotFoundException("Пользователь не найден");
-        return new PersonDetails(PersonForRegDTO.convertToDto(person.get()));
+        return new PersonDetails(person.get());
     }
 
 }
