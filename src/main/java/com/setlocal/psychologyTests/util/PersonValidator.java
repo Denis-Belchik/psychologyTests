@@ -1,7 +1,6 @@
 package com.setlocal.psychologyTests.util;
 
-import com.setlocal.psychologyTests.dto.PersonDTO;
-import com.setlocal.psychologyTests.model.Person;
+import com.setlocal.psychologyTests.dto.PersonForRegDTO;
 import com.setlocal.psychologyTests.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,16 +15,16 @@ public class PersonValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return PersonDTO.class.equals(clazz);
+        return PersonForRegDTO.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        PersonDTO personDTO = (PersonDTO) target;
-        if (!personService.loadUserByUsername(personDTO.getUsername()).isEmpty()) {
+        PersonForRegDTO personForRegDTO = (PersonForRegDTO) target;
+        if (!personService.loadUserByUsername(personForRegDTO.getUsername()).isEmpty()) {
             errors.rejectValue("username", "", "Существует");
         }
-        if (!personDTO.getPassword().equals(personDTO.getConfirmPassword())) {
+        if (!personForRegDTO.getPassword().equals(personForRegDTO.getConfirmPassword())) {
             errors.rejectValue("password", "", "Разные");
         }
     }

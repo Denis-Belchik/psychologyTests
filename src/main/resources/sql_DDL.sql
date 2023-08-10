@@ -34,11 +34,13 @@ create table answer
 
 create table person(
     username varchar(100) primary key,
-    role role not null,
-    email varchar(100)  not null,
+    firstname varchar(100) not null,
     lastname varchar(100) not null,
+    email varchar(100)  not null,
     password varchar(100) not null,
-    enabled boolean not null
+    role role not null,
+    enabled boolean not null,
+    date_time timestamp not null
 );
 
 insert into role (role)
@@ -50,8 +52,8 @@ values ('qwe@mail.ru', 'garet', 'Петров', '123', 1),
         ('asd@mail.ru', 'svarog', 'Иванов',  '123', 1);
 
 insert into test (title_test)
-values ('ТЕСТИРОВАНИЕ ПЕРВОЕ ЕПТА'),
-       ('ТЕСТИРОВАНИЕ ВРОТОЕ ЕПТА');
+values ('ТЕСТИРОВАНИЕ ПЕРВОЕ'),
+       ('ТЕСТИРОВАНИЕ ВРОТОЕ');
 
 insert into question(test_id, body_question, type)
 values (1, 'БД ТЕСТ 1 Вопрос 1', 'RADIO'),

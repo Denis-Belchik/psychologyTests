@@ -79,6 +79,7 @@ body {
         <div class="form-group">
             <button class="btn btn-primary btn-block create-account" type="submit">Вход в аккаунт</button>
         </div>
+        <p><a href="/auth/registration">Зарегистрироваться</a>.</p>
         <p><a href="/">Вернуться</a>.</p>
     </form>
 </div>
