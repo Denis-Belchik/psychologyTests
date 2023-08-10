@@ -1,6 +1,6 @@
 package com.setlocal.psychologyTests.security;
 
-import com.setlocal.psychologyTests.dto.PersonDTO;
+import com.setlocal.psychologyTests.dto.PersonForRegDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,21 +12,21 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class PersonDetails implements UserDetails {
 
-    private final PersonDTO personDTO;
+    private final PersonForRegDTO personForRegDTO;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(personDTO.getRole().name()));
+        return Collections.singletonList(new SimpleGrantedAuthority(personForRegDTO.getRole().name()));
     }
 
     @Override
     public String getPassword() {
-        return personDTO.getPassword();
+        return personForRegDTO.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return personDTO.getUsername();
+        return personForRegDTO.getUsername();
     }
 
     @Override
@@ -46,10 +46,10 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return personDTO.isEnabled();
+        return personForRegDTO.isEnabled();
     }
 
-    public PersonDTO getPersonDTO(){
-        return this.personDTO;
+    public PersonForRegDTO getPersonForRegDTO(){
+        return this.personForRegDTO;
     }
 }

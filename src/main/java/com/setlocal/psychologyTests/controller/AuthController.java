@@ -1,6 +1,6 @@
 package com.setlocal.psychologyTests.controller;
 
-import com.setlocal.psychologyTests.dto.PersonDTO;
+import com.setlocal.psychologyTests.dto.PersonForRegDTO;
 import com.setlocal.psychologyTests.service.PersonService;
 import com.setlocal.psychologyTests.util.PersonValidator;
 import jakarta.validation.Valid;
@@ -28,18 +28,18 @@ public class AuthController {
     }
 
     @GetMapping("/registration")
-    public String registrationPages(@ModelAttribute("personDTO") PersonDTO personDTO) {
+    public String registrationPages(@ModelAttribute("personForRegDTO") PersonForRegDTO personForRegDTO) {
         return "auth/registration";
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("personDTO") @Valid PersonDTO personDTO,
+    public String registration(@ModelAttribute("personForRegDTO") @Valid PersonForRegDTO personForRegDTO,
                                BindingResult bindingResult) {
-        personValidator.validate(personDTO, bindingResult);
+        personValidator.validate(personForRegDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/auth/registration";
         }
-        personService.savePerson(personDTO);
+        personService.savePerson(personForRegDTO);
         return "/auth/login";
     }
 

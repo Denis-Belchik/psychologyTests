@@ -9,6 +9,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -22,27 +23,29 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf().disable()
+        http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a
-                                .requestMatchers("/admin").hasRole("ADMIN")
-                                .requestMatchers("/auth/login",
-                                        "/auth/registration",
-                                        "/",
-                                        "/error")
-                                .permitAll()
+                        .requestMatchers("/admin")
+                        .hasRole("ADMIN")
+                        .requestMatchers("/auth/login",
+                                "/auth/registration",
+                                "/",
+                                "/error")
+                        .permitAll()
                         .anyRequest().hasAnyRole("ADMIN", "USER")
                 )
-                .formLogin()
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/auth/login?error=1")
-                .and()
-                .logout()
-                .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/")
-                .and().build();
+                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/process_login")
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/auth/login?error=1")
+                )
+                .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/")
+                );
+        return http.build();
     }
 
     @Bean

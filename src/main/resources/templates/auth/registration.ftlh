@@ -6,7 +6,7 @@
 <style>
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: black;
+    background-color:#214c84;
 }
 
 * {
@@ -15,15 +15,15 @@ body {
 
 /* Add padding to containers */
 .container {
-    padding: 16px;
+    padding: 5px;
     background-color: white;
 }
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
+    padding: 5px;
+    margin: 5px 0 10px 0;
     display: inline-block;
     border: none;
     background: #f1f1f1;
@@ -37,15 +37,15 @@ input[type=text]:focus, input[type=password]:focus {
 /* Overwrite default styles of hr */
 hr {
     border: 1px solid #f1f1f1;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 /* Set a style for the submit button */
 .registerbtn {
     background-color: #4CAF50;
     color: white;
-    padding: 16px 20px;
-    margin: 8px 0;
+    padding: 5px 10px;
+    margin: 4px 0;
     border: none;
     cursor: pointer;
     width: 100%;
@@ -69,55 +69,59 @@ a {
 </style>
 </head>
 <body>
-
+<div style="width: 40%; margin-left: auto; margin-right: auto">
 <form method="post" action="<@spring.url '/auth/registration'/>">
   <div class="container">
     <h1>Регистрация</h1>
     <p>Пожалуйста заполните все поля.</p>
     <hr>
 
-        <@spring.bind 'personDTO.username'/>
+        <@spring.bind 'personForRegDTO.username'/>
           <#list spring.status.errorMessages as error>
               <span class="error">${error}</span>
               <br>
           </#list>
-
      <label for="text"><b>Логин</b></label>
      <input type="text" placeholder="Логин" name="username" required>
 
-        <@spring.bind 'personDTO.email'/>
+        <@spring.bind 'personForRegDTO.firstName'/>
           <#list spring.status.errorMessages as error>
               <span class="error">${error}</span>
               <br>
           </#list>
+     <label for="text"><b>Имя</b></label>
+     <input type="text" placeholder="Имя" name="firstName" required>
 
-     <label for="text"><b>Email</b></label>
-     <input type="text" placeholder="Email" name="email" required>
-
-        <@spring.bind 'personDTO.lastName'/>
+        <@spring.bind 'personForRegDTO.lastName'/>
           <#list spring.status.errorMessages as error>
               <span class="error">${error}</span>
               <br>
           </#list>
-
      <label for="text"><b>Фамилия</b></label>
      <input type="text" placeholder="Имя" name="lastName" required>
 
-        <@spring.bind 'personDTO.password'/>
+        <@spring.bind 'personForRegDTO.email'/>
           <#list spring.status.errorMessages as error>
               <span class="error">${error}</span>
               <br>
           </#list>
+     <label for="text"><b>Email</b></label>
+     <input type="text" placeholder="Email" name="email" required>
 
+
+        <@spring.bind 'personForRegDTO.password'/>
+          <#list spring.status.errorMessages as error>
+              <span class="error">${error}</span>
+              <br>
+          </#list>
     <label for="psw"><b>Пароль</b></label>
     <input type="password" placeholder="Пароль" name="password" required>
 
-        <@spring.bind 'personDTO.confirmPassword'/>
+        <@spring.bind 'personForRegDTO.confirmPassword'/>
           <#list spring.status.errorMessages as error>
               <span class="error">${error}</span>
               <br>
           </#list>
-
     <label for="psw"><b>Повторите пароль</b></label>
     <input type="password" placeholder="Пароль" name="confirmPassword" required>
 
@@ -129,6 +133,6 @@ a {
     <p><a href="/">Вернуться</a>.</p>
   </div>
 </form>
-
+</div>
 </body>
 </html>
