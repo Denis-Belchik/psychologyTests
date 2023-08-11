@@ -1,20 +1,19 @@
 package com.setlocal.psychologyTests.repository;
 
-import com.setlocal.psychologyTests.dto.PersonForViewDTO;
 import com.setlocal.psychologyTests.model.Person;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+
+//@Primary
 @RequiredArgsConstructor
 @Repository
-public class PersonDao {
+public class PersonDaoImpl implements PersonRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -34,7 +33,7 @@ public class PersonDao {
     private static final String SAVE_PERSON_SQL = """
             INSERT INTO psychology_tests.person(
                 username, firstname, lastname, email, password, role, enabled, date_time) 
-            VALUES (?, ?, ?, ?, ?, cast(? as role), ?, ?)    
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)    
             """;
 
     private static final String ALL_PERSON_SQL = """
@@ -49,6 +48,7 @@ public class PersonDao {
             FROM psychology_tests.person
             """;
 
+    @Override
     public Optional<Person> findByUsername(String username) {
         return jdbcTemplate.queryForStream(FIND_PERSON_BY_NAME_SQL, (rs, row) -> {
                     Person person = new Person();
@@ -65,8 +65,9 @@ public class PersonDao {
                 username).findAny();
     }
 
-    public Integer savePerson(Person person) {
-        return jdbcTemplate.update(SAVE_PERSON_SQL,
+    @Override
+    public Person save(Person person) {
+        jdbcTemplate.update(SAVE_PERSON_SQL,
                 person.getUsername(),
                 person.getFirstName(),
                 person.getLastName(),
@@ -74,9 +75,12 @@ public class PersonDao {
                 person.getPassword(),
                 person.getRole().name(),
                 person.isEnabled(),
-                person.getDateTime());
+                person.getDateTime()
+        );
+        return person;
     }
 
+    @Override
     public List<Person> findAll() {
         return jdbcTemplate.query(ALL_PERSON_SQL, (rs, rowNum) -> {
                     Person person = new Person();

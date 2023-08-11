@@ -3,7 +3,7 @@ package com.setlocal.psychologyTests.service;
 import com.setlocal.psychologyTests.dto.PersonForRegDTO;
 import com.setlocal.psychologyTests.dto.PersonForViewDTO;
 import com.setlocal.psychologyTests.model.Person;
-import com.setlocal.psychologyTests.repository.PersonDao;
+import com.setlocal.psychologyTests.repository.PersonRepository;
 import com.setlocal.psychologyTests.security.PersonDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -20,25 +20,25 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PersonService {
 
-    private final PersonDao personDao;
+    private final PersonRepository personRepository;
     private final PasswordEncoder passwordEncoder;
 
     public Optional<Person> loadUserByUsername(String username) {
-        return personDao.findByUsername(username);
+        return personRepository.findByUsername(username);
     }
 
-    public Integer savePerson(PersonForRegDTO personForRegDTO) {
+    public Person savePerson(PersonForRegDTO personForRegDTO) {
         Person person = PersonForRegDTO.convertToEmpty(personForRegDTO);
         String encoderPass = passwordEncoder.encode(person.getPassword());
         person.setPassword(encoderPass);
         person.setEnabled(true);
         person.setRole(Person.Role.ROLE_USER);
         person.setDateTime(LocalDateTime.now());
-        return personDao.savePerson(person);
+        return personRepository.save(person);
     }
 
     public List<PersonForViewDTO> getAllPerson(){
-        return personDao.findAll().stream()
+        return personRepository.findAll().stream()
                 .map(PersonForViewDTO::convertToDto)
                 .collect(Collectors.toList());
     }
