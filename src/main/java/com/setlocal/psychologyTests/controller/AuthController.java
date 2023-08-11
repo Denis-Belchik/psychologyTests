@@ -39,8 +39,9 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return "/auth/registration";
         }
-        personService.savePerson(personForRegDTO);
-        return "/auth/login";
+        if (personService.savePerson(personForRegDTO) != null)
+            return "/auth/login";
+        return "/auth/registration";
     }
 
 }

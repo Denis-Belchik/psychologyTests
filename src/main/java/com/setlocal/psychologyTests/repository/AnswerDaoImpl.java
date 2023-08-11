@@ -2,14 +2,17 @@ package com.setlocal.psychologyTests.repository;
 
 import com.setlocal.psychologyTests.model.Answer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @RequiredArgsConstructor
 @Repository
-public class AnswerDao {
+//@Primary
+public class AnswerDaoImpl implements AnswerRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -20,7 +23,8 @@ public class AnswerDao {
             WHERE question_id = ?
             """;
 
-    public List<Answer> findListById(Integer id) {
+    @Override
+    public List<Answer> findByQuestionId(Integer id) {
         return jdbcTemplate.query(FIND_ANSWER_BY_QUESTION_ID_SQL, (rs, rowNum) -> {
             Answer answer = new Answer();
             answer.setId(rs.getInt("id_a"));

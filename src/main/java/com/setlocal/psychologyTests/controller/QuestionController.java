@@ -1,6 +1,7 @@
 package com.setlocal.psychologyTests.controller;
 
 import com.setlocal.psychologyTests.dto.QuestionDTO;
+import com.setlocal.psychologyTests.model.Test;
 import com.setlocal.psychologyTests.service.PersonService;
 import com.setlocal.psychologyTests.service.TestResultService;
 import com.setlocal.psychologyTests.service.TestService;
@@ -20,14 +21,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionController {
 
-    private List<String> titleList = new ArrayList<>();
-
     @Value(value = "${button.pref}")
     private String buttonPref;
     @Value(value = "${button.next}")
     private String buttonNext;
     @Value(value = "${button.end}")
     private String buttonEnd;
+
+    private List<Test> titleList = new ArrayList<>();
+
     private final TestService testService;
     private final TestResultService testResultService;
     private final PersonService personService;
@@ -35,7 +37,7 @@ public class QuestionController {
     @GetMapping("/")
     public String main(Model model) {
         if (titleList.isEmpty()) {
-            titleList = testService.getListTitleTest();
+            titleList = testService.getListTest();
         }
         model.addAttribute("titles", titleList);
         model.addAttribute("personForViewDTO", personService.showUserInfo());

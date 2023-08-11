@@ -4,7 +4,7 @@ import com.setlocal.psychologyTests.dto.QuestionDTO;
 import com.setlocal.psychologyTests.dto.TestDTO;
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
-import com.setlocal.psychologyTests.repository.TestDao;
+import com.setlocal.psychologyTests.repository.TestDaoImpl;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
@@ -22,10 +22,10 @@ public class TestService {
     private boolean isRun = false;
     private TestDTO testDto;
 
-    private final TestDao testDao;
+    private final TestDaoImpl testDaoImpl;
 
     public void testRun(int id) {
-        Test test = testDao.findById(id);
+        Test test = testDaoImpl.findById(id).orElse(null);
         testDto = TestDTO.convertToDto(test);
         if (testDto.getLength() > 0) {
             isRun = true;
@@ -67,7 +67,7 @@ public class TestService {
         return testDto.getLength();
     }
 
-    public List<String> getListTitleTest() {
-        return testDao.getListTitleTest();
+    public List<Test> getListTest() {
+        return testDaoImpl.findAll();
     }
 }
