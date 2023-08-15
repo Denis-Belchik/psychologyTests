@@ -1,7 +1,7 @@
 package com.setlocal.psychologyTests.controller;
 
 import com.setlocal.psychologyTests.dto.PersonForRegDTO;
-import com.setlocal.psychologyTests.service.PersonService;
+import com.setlocal.psychologyTests.service.AuthService;
 import com.setlocal.psychologyTests.util.PersonValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final PersonService personService;
+    private final AuthService authService;
     private final PersonValidator personValidator;
 
     @GetMapping("/login")
@@ -39,7 +39,7 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             return "/auth/registration";
         }
-        if (personService.savePerson(personForRegDTO) != null)
+        if (authService.savePerson(personForRegDTO) != null)
             return "/auth/login";
         return "/auth/registration";
     }

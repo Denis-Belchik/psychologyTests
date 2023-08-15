@@ -70,6 +70,7 @@ a {
 </head>
 <body>
 <div style="width: 40%; margin-left: auto; margin-right: auto">
+
 <form method="post" action="<@spring.url '/auth/registration'/>">
   <div class="container">
     <h1>Регистрация</h1>
