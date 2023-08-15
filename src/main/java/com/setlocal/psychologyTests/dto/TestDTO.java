@@ -4,22 +4,26 @@ import com.setlocal.psychologyTests.model.Test;
 import lombok.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class TestDTO {
+public class TestDTO implements MapToDTO<TestDTO, Test>{
     private int id;
     private String title;
     private int length;
     private List<QuestionDTO> questions;
 
-    public static TestDTO convertToDto(Test test) {
+    @Override
+    public TestDTO convertToDto(Test test) {
         TestDTO testDto = new TestDTO();
         if (test != null) {
             testDto.setId(test.getId());
             testDto.setTitle(test.getTitle());
-            testDto.setQuestions(QuestionDTO.convertToListDto(test.getQuestions()));
+            testDto.setQuestions(test.getQuestions().stream()
+                    .map(q -> new QuestionDTO().convertToDto(q))
+                    .collect(Collectors.toList())
+            );
             testDto.setLength(test.getQuestions().size());
         }
         return testDto;

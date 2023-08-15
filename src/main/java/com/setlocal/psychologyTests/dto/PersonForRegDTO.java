@@ -6,11 +6,11 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class PersonForRegDTO {
+public class PersonForRegDTO implements //MapToDTO<PersonForRegDTO, Person>,
+        MapToEmpty<Person, PersonForRegDTO> {
     @Email(message = "Неправильный Email", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     @NotEmpty(message = "EMail не должен быть пустым")
     private String email;
@@ -36,22 +36,24 @@ public class PersonForRegDTO {
 
     private LocalDateTime dateTime;
 
-    public static PersonForRegDTO convertToDto(Person person) {
-        PersonForRegDTO personForRegDto = new PersonForRegDTO();
-        if (person != null) {
-            personForRegDto.setUsername(person.getUsername());
-            personForRegDto.setFirstName(person.getFirstName());
-            personForRegDto.setLastName(person.getLastName());
-            personForRegDto.setEmail(person.getEmail());
-            personForRegDto.setPassword(person.getPassword());
-            personForRegDto.setEnabled(person.isEnabled());
-            personForRegDto.setRole(person.getRole());
-            personForRegDto.setDateTime(person.getDateTime());
-        }
-        return personForRegDto;
-    }
+//    @Override
+//    public PersonForRegDTO convertToDto(Person person) {
+//        PersonForRegDTO personForRegDto = new PersonForRegDTO();
+//        if (person != null) {
+//            personForRegDto.setUsername(person.getUsername());
+//            personForRegDto.setFirstName(person.getFirstName());
+//            personForRegDto.setLastName(person.getLastName());
+//            personForRegDto.setEmail(person.getEmail());
+//            personForRegDto.setPassword(person.getPassword());
+//            personForRegDto.setEnabled(person.isEnabled());
+//            personForRegDto.setRole(person.getRole());
+//            personForRegDto.setDateTime(person.getDateTime());
+//        }
+//        return personForRegDto;
+//    }
 
-    public static Person convertToEmpty(PersonForRegDTO personForRegDTO) {
+    @Override
+    public Person convertToEmpty(PersonForRegDTO personForRegDTO) {
         Person person = new Person();
         if (personForRegDTO != null) {
             person.setUsername(personForRegDTO.getUsername());

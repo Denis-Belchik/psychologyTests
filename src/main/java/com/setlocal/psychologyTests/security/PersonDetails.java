@@ -1,7 +1,7 @@
 package com.setlocal.psychologyTests.security;
 
-import com.setlocal.psychologyTests.dto.PersonForRegDTO;
 import com.setlocal.psychologyTests.model.Person;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+@Getter
 @RequiredArgsConstructor
 public class PersonDetails implements UserDetails {
 
@@ -50,7 +51,4 @@ public class PersonDetails implements UserDetails {
         return person.isEnabled();
     }
 
-    public Person getPerson(){
-        return this.person;
-    }
 }

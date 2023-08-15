@@ -1,16 +1,14 @@
 package com.setlocal.psychologyTests.dto;
 
 import com.setlocal.psychologyTests.model.Person;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class PersonForViewDTO {
+public class PersonForViewDTO implements MapToDTO<PersonForViewDTO, Person>{
 
     private String username;
     private String firstName;
@@ -20,7 +18,8 @@ public class PersonForViewDTO {
     private LocalDateTime dateTime;
     private boolean enabled;
 
-    public static PersonForViewDTO convertToDto(Person person) {
+    @Override
+    public PersonForViewDTO convertToDto(Person person) {
         PersonForViewDTO personForViewDTO = new PersonForViewDTO();
         if (person != null) {
             personForViewDTO.setUsername(person.getUsername());

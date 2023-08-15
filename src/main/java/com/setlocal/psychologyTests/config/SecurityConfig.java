@@ -31,7 +31,6 @@ public class SecurityConfig {
                         .requestMatchers("/auth/login",
                                 "/auth/registration",
                                 "/")
-//                                ,                                "/error")
                         .permitAll()
                         .anyRequest().hasAnyRole("ADMIN", "USER")
                 )

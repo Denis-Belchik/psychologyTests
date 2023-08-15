@@ -1,7 +1,7 @@
 package com.setlocal.psychologyTests.util;
 
 import com.setlocal.psychologyTests.dto.PersonForRegDTO;
-import com.setlocal.psychologyTests.service.PersonService;
+import com.setlocal.psychologyTests.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @RequiredArgsConstructor
 public class PersonValidator implements Validator {
 
-    private final PersonService personService;
+    private final AuthService authService;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -21,11 +21,12 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         PersonForRegDTO personForRegDTO = (PersonForRegDTO) target;
-        if (!personService.loadUserByUsername(personForRegDTO.getUsername()).isEmpty()) {
-            errors.rejectValue("username", "", "Существует");
+        if (authService.findByUsername(personForRegDTO.getUsername()).isPresent()) {
+            errors.rejectValue("username", "",
+                    "Такой пользователь уже существует");
         }
         if (!personForRegDTO.getPassword().equals(personForRegDTO.getConfirmPassword())) {
-            errors.rejectValue("password", "", "Разные");
+            errors.rejectValue("password", "", "Пароли не совпадают");
         }
     }
 }

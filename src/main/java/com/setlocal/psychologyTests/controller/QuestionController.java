@@ -28,7 +28,7 @@ public class QuestionController {
     @Value(value = "${button.end}")
     private String buttonEnd;
 
-    private List<Test> titleList = new ArrayList<>();
+    private List<Test> testList = new ArrayList<>();
 
     private final TestService testService;
     private final TestResultService testResultService;
@@ -36,10 +36,10 @@ public class QuestionController {
 
     @GetMapping("/")
     public String main(Model model) {
-        if (titleList.isEmpty()) {
-            titleList = testService.getListTest();
+        if (testList.isEmpty()) {
+            testList = testService.getListTest();
         }
-        model.addAttribute("titles", titleList);
+        model.addAttribute("titles", testList);
         model.addAttribute("personForViewDTO", personService.showUserInfo());
         return "test-start";
     }
@@ -106,7 +106,5 @@ public class QuestionController {
         }
         return "redirect:/test-view";
     }
-
-
 
 }

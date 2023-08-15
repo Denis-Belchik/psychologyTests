@@ -24,7 +24,7 @@ public class AdminController {
 
     @PostMapping("/view-person-post")
     public String viewPerson(Model model){
-        model.addAttribute("infoperson", personService.getAllPerson());
+        model.addAttribute("infoperson", personService.getAllPersonDTO());
         return "admin/view";
     }
 

@@ -88,18 +88,16 @@
 
 </#if>
 
-<#assign id = 1>
 <#list titles as title1>
 
     <form method="post" action="/test-post-start">
         <fieldset>
-            <input type="hidden" name="id" value=${id}>
+            <input type="hidden" name="id" value=${title1.id}>
             <input class="${clazz}" type="submit" name="button" value="Начать" ${type} >
             ${title1.title}
         </fieldset>
     </form>
     <br>
-    <#assign id++>
 
 </#list>
 

@@ -26,7 +26,7 @@ public class TestService {
 
     public void testRun(int id) {
         Test test = testDaoImpl.findById(id).orElse(null);
-        testDto = TestDTO.convertToDto(test);
+        testDto =  new TestDTO().convertToDto(test);
         if (testDto.getLength() > 0) {
             isRun = true;
         } else {
