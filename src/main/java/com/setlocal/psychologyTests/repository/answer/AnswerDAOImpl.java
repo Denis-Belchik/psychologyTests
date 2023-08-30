@@ -1,8 +1,7 @@
-package com.setlocal.psychologyTests.repository;
+package com.setlocal.psychologyTests.repository.answer;
 
 import com.setlocal.psychologyTests.model.Answer;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Repository
 //@Primary
-public class AnswerDaoImpl implements AnswerRepository{
+public class AnswerDAOImpl implements AnswerRepository{
 
     private final JdbcTemplate jdbcTemplate;
 

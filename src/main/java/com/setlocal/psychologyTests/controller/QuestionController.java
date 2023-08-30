@@ -21,11 +21,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionController {
 
-    @Value(value = "${button.pref}")
+    @Value(value = "Предыдущий")
     private String buttonPref;
-    @Value(value = "${button.next}")
+    @Value(value = "Следующий")
     private String buttonNext;
-    @Value(value = "${button.end}")
+    @Value(value = "Закончить")
     private String buttonEnd;
 
     private List<Test> testList = new ArrayList<>();
@@ -59,7 +59,7 @@ public class QuestionController {
         QuestionDTO questionDto = testService.getQuestion();
         if (questionDto != null) {
             model.addAttribute("title", testService.getTestTitle());
-            model.addAttribute("quest", questionDto.getBodyQuestion());
+            model.addAttribute("quest", questionDto.getBody());
             model.addAttribute("type", testService.getQuestionType());
             model.addAttribute("answers", questionDto.getAnswers());
             model.addAttribute("position", testService.getPosition());
@@ -75,7 +75,6 @@ public class QuestionController {
     @PostMapping("/test-post-start")
     public String testPostStart(Integer id) {
         testService.testRun(id);
-
         return "redirect:/test-view";
     }
 
@@ -95,6 +94,8 @@ public class QuestionController {
 
         if (button.equals(buttonNext)) {
             testResultService.addResult(testService.getQuestion().getId(), id);
+            System.out.println(testService.getQuestion());
+            System.out.println(testService.getQuestion().getId());
             testService.nextPosition();
         }
         if (button.equals(buttonPref))

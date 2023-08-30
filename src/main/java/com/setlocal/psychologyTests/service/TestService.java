@@ -4,7 +4,7 @@ import com.setlocal.psychologyTests.dto.QuestionDTO;
 import com.setlocal.psychologyTests.dto.TestDTO;
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
-import com.setlocal.psychologyTests.repository.TestDaoImpl;
+import com.setlocal.psychologyTests.repository.test.TestDAOImpl;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
@@ -22,12 +22,13 @@ public class TestService {
     private boolean isRun = false;
     private TestDTO testDto;
 
-    private final TestDaoImpl testDaoImpl;
+    private final TestDAOImpl testDaoImpl;
 
     public void testRun(int id) {
         Test test = testDaoImpl.findById(id).orElse(null);
         testDto =  new TestDTO().convertToDto(test);
-        if (testDto.getLength() > 0) {
+        System.out.println(testDto);
+        if (testDto.getSize() > 0) {
             isRun = true;
         } else {
             testStop();
@@ -40,7 +41,7 @@ public class TestService {
     }
 
     public void nextPosition() {
-        if (position < testDto.getLength())
+        if (position < testDto.getSize())
             position++;
     }
 
@@ -50,7 +51,7 @@ public class TestService {
     }
 
     public QuestionDTO getQuestion() {
-        if (testDto.getLength() > position)
+        if (testDto.getSize() > position)
             return testDto.getQuestions().get(position);
         return null;
     }
@@ -64,7 +65,7 @@ public class TestService {
     }
 
     public Integer getTestSize() {
-        return testDto.getLength();
+        return testDto.getSize();
     }
 
     public List<Test> getListTest() {

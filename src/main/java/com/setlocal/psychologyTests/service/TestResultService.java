@@ -12,6 +12,7 @@ public class TestResultService {
     private final Map<Integer, List<Integer>> repositoryResultTest = new LinkedHashMap<>();
 
     public void addResult(Integer position, Integer[] id) {
+        System.out.println("position = " + position);
         List<Integer> list;
         if (id == null) {
             list = new ArrayList<>(List.of(0));

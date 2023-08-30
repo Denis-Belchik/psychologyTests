@@ -1,8 +1,7 @@
-package com.setlocal.psychologyTests.repository;
+package com.setlocal.psychologyTests.repository.person;
 
 import com.setlocal.psychologyTests.model.Person;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

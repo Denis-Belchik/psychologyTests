@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 public class AnswerDTO implements MapToDTO<AnswerDTO, Answer> {
     private int id;
+    private int position;
     private String answer;
 
     @Override
@@ -14,6 +15,7 @@ public class AnswerDTO implements MapToDTO<AnswerDTO, Answer> {
         AnswerDTO answerDTO = new AnswerDTO();
         if (answer != null) {
             answerDTO.setId(answer.getId());
+            answerDTO.setPosition(answer.getPosition());
             answerDTO.setAnswer(answer.getAnswer());
         }
         return answerDTO;

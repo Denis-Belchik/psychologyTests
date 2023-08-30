@@ -190,7 +190,7 @@
 
             <#list answers as answer>
                 <label class="container">${answer.answer}
-                    <input type="radio" name="id" value="${answer.id}">
+                    <input type="radio" name="id" value="${answer.position}">
                     <span class="checkmark"></span>
                 </label>
             </#list>
@@ -199,7 +199,7 @@
 
             <#list answers as answer>
                 <label class="containerCheckbox">${answer.answer}
-                    <input type="checkbox" name="id" value="${answer.id}">
+                    <input type="checkbox" name="id" value="${answer.position}">
                     <span class="checkmarkCheckbox"></span>
                 </label>
             </#list>

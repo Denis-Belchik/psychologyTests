@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class QuestionDTO implements MapToDTO<QuestionDTO, Question>{
     private int id;
-    private String bodyQuestion;
+    private String body;
     private Question.TypeAnswer type;
     private List<AnswerDTO> answers;
 
@@ -20,7 +20,7 @@ public class QuestionDTO implements MapToDTO<QuestionDTO, Question>{
 
         if (question != null) {
             questionDto.setId(question.getId());
-            questionDto.setBodyQuestion(question.getBodyQuestion());
+            questionDto.setBody(question.getBody());
             questionDto.setType(question.getType());
             questionDto.setAnswers(question.getAnswers().stream()
                     .map(a -> new AnswerDTO().convertToDto(a))

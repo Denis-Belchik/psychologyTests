@@ -21,8 +21,8 @@ public class Question {
     @Column(name = "id_q")
     private int id;
 
-    @Column(name = "body_question")
-    private String bodyQuestion;
+    @Column(name = "body")
+    private String body;
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
@@ -34,4 +34,7 @@ public class Question {
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answers;
+
+    @OneToMany(mappedBy = "question")
+    private List<AnswerKey> answersKey;
 }
