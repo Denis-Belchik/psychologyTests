@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TestDTO implements MapToDTO<TestDTO, Test>{
     private int id;
     private String title;
-    private int length;
+    private int size;
     private List<QuestionDTO> questions;
 
     @Override
@@ -20,11 +20,11 @@ public class TestDTO implements MapToDTO<TestDTO, Test>{
         if (test != null) {
             testDto.setId(test.getId());
             testDto.setTitle(test.getTitle());
+            testDto.setSize(test.getSize());
             testDto.setQuestions(test.getQuestions().stream()
                     .map(q -> new QuestionDTO().convertToDto(q))
                     .collect(Collectors.toList())
             );
-            testDto.setLength(test.getQuestions().size());
         }
         return testDto;
     }

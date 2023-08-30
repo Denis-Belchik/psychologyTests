@@ -2,7 +2,7 @@ package com.setlocal.psychologyTests.service;
 
 import com.setlocal.psychologyTests.dto.PersonForRegDTO;
 import com.setlocal.psychologyTests.model.Person;
-import com.setlocal.psychologyTests.repository.PersonRepository;
+import com.setlocal.psychologyTests.repository.person.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

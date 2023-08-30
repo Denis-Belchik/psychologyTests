@@ -1,7 +1,7 @@
 package com.setlocal.psychologyTests.service;
 
 import com.setlocal.psychologyTests.model.Person;
-import com.setlocal.psychologyTests.repository.PersonRepository;
+import com.setlocal.psychologyTests.repository.person.PersonRepository;
 import com.setlocal.psychologyTests.security.PersonDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package com.setlocal.psychologyTests.repository;
+package com.setlocal.psychologyTests.repository.answer;
 
 import com.setlocal.psychologyTests.model.Answer;
 import org.springframework.context.annotation.Primary;

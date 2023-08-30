@@ -1,4 +1,4 @@
-package com.setlocal.psychologyTests.repository;
+package com.setlocal.psychologyTests.repository.question;
 
 import com.setlocal.psychologyTests.model.Question;
 
