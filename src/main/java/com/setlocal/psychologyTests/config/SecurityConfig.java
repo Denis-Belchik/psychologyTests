@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .hasRole("ADMIN")
                         .requestMatchers("/auth/login",
                                 "/auth/registration",
+                                "/rest",
                                 "/")
                         .permitAll()
                         .anyRequest().hasAnyRole("ADMIN", "USER")

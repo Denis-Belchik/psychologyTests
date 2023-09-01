@@ -1,14 +1,14 @@
---create datebase psychology_tests;
---
---create schema psychology_tests;
---
---drop TABLE psychology_tests.answer;
---
---drop TABLE psychology_tests.answer_key;
---
---drop TABLE psychology_tests.question;
---
---drop TABLE psychology_tests.test;
+create datebase psychology_tests;
+
+create schema psychology_tests;
+
+drop TABLE psychology_tests.answer;
+
+drop TABLE psychology_tests.answer_key;
+
+drop TABLE psychology_tests.question;
+
+drop TABLE psychology_tests.test;
 
 
 create table psychology_tests.answer_key
@@ -22,9 +22,10 @@ create table psychology_tests.answer_key
 create table psychology_tests.answer_person
 (
     id_ap serial primary key,
-    person_username int references psychology_tests.person (username) not null,
+    person_username varchar(100) not null,
+--    person_username varchar(100) references psychology_tests.person (username) not null,
     question_id    int not null,
-    position int not null
+    position    int not null
 );
 
 create table psychology_tests.test

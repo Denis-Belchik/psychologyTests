@@ -1,6 +1,9 @@
 package com.setlocal.psychologyTests.service;
 
+import com.setlocal.psychologyTests.dto.mainPage.PersonForMainPageDTO;
 import com.setlocal.psychologyTests.dto.PersonForViewDTO;
+import com.setlocal.psychologyTests.mapper.PersonForMainPageMapper;
+import com.setlocal.psychologyTests.model.Person;
 import com.setlocal.psychologyTests.repository.person.PersonRepository;
 import com.setlocal.psychologyTests.security.PersonDetails;
 import lombok.RequiredArgsConstructor;
@@ -15,20 +18,31 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PersonService {
 
-    private final PersonRepository personRepository;;
+    private final PersonRepository personRepository;
+    private final PersonForMainPageMapper personForMainPageMapper;
 
-    public List<PersonForViewDTO> getAllPersonDTO() {
+    public List<PersonForViewDTO> getAllPersonForView() {
         return personRepository.findAll().stream()
                 .map(p -> new PersonForViewDTO().convertToDto(p))
                 .collect(Collectors.toList());
     }
 
-    public PersonForViewDTO showUserInfo() {
+    private Person showAuthPerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getPrincipal() instanceof PersonDetails personDetails) {
-            return new PersonForViewDTO().convertToDto(personDetails.getPerson());
+            return personDetails.getPerson();
         }
         return null;
     }
+
+    public PersonForMainPageDTO getPersonForMainPage(){
+        PersonForMainPageDTO personForMainPageDTO = new PersonForMainPageDTO();
+        Person person = showAuthPerson();
+        if (person != null){
+            personForMainPageDTO = personForMainPageMapper.mapToDTO(person);
+        }
+        return personForMainPageDTO;
+    }
+
 
 }

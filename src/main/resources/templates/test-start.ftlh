@@ -65,7 +65,7 @@
 </style>
 <body>
 
-<#if !personForViewDTO?has_content>
+<#if !attribute.personForMainPageDTO.firstName?has_content>
 <div style = "float: right">
     <a href="/auth/login">Войти</a>
     <a href="/auth/registration">Зарегистрироваться</a>
@@ -77,24 +77,26 @@
 </div>
 </#if>
 
-<#if !personForViewDTO?has_content>
+<#if !attribute.personForMainPageDTO.firstName?has_content>
  <h2>Чтобы пройти тесты, вы должны войти</h2>
  <#assign type = "disabled">
  <#assign clazz = "">
 <#else>
- <h2>Здравствуйте ${personForViewDTO.firstName} ${personForViewDTO.lastName}. Вы можете пройти тесты:</h2>
+ <h2>Здравствуйте ${attribute.personForMainPageDTO.firstName} ${attribute.personForMainPageDTO.lastName}. Вы можете пройти тесты:</h2>
  <#assign type = "">
  <#assign clazz = "button">
 
 </#if>
 
-<#list titles as title1>
+<#list attribute.testForMainPageDTOList as test>
 
     <form method="post" action="/test-post-start">
         <fieldset>
-            <input type="hidden" name="id" value=${title1.id}>
+            <input type="hidden" name="id" value=${test.id}>
             <input class="${clazz}" type="submit" name="button" value="Начать" ${type} >
-            ${title1.title}
+            ${test.title}
+            <br>
+            ${test.description}
         </fieldset>
     </form>
     <br>

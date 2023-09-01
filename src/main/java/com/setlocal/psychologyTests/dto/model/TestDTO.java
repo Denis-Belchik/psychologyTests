@@ -1,5 +1,6 @@
-package com.setlocal.psychologyTests.dto;
+package com.setlocal.psychologyTests.dto.model;
 
+import com.setlocal.psychologyTests.dto.MapToDTO;
 import com.setlocal.psychologyTests.model.Test;
 import lombok.*;
 
@@ -8,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class TestDTO implements MapToDTO<TestDTO, Test>{
+public class TestDTO implements MapToDTO<TestDTO, Test> {
     private int id;
     private String title;
     private int size;

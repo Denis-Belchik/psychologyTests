@@ -1,31 +1,47 @@
 package com.setlocal.psychologyTests.service;
 
-import com.setlocal.psychologyTests.dto.QuestionDTO;
-import com.setlocal.psychologyTests.dto.TestDTO;
+import com.setlocal.psychologyTests.dto.ViewTestDTO;
+import com.setlocal.psychologyTests.dto.model.QuestionDTO;
+import com.setlocal.psychologyTests.dto.model.TestDTO;
+import com.setlocal.psychologyTests.dto.mainPage.TestForMainPageDTO;
+import com.setlocal.psychologyTests.mapper.TestForMainPageMapper;
+import com.setlocal.psychologyTests.mapper.ViewTestMapper;
 import com.setlocal.psychologyTests.model.Question;
 import com.setlocal.psychologyTests.model.Test;
-import com.setlocal.psychologyTests.repository.test.TestDAOImpl;
+import com.setlocal.psychologyTests.repository.test.TestRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Service
 @Scope("session")
 @RequiredArgsConstructor
-public class TestService {
+public class QuestionService {
 
     private int position = 0;
     private boolean isRun = false;
     private TestDTO testDto;
 
-    private final TestDAOImpl testDaoImpl;
+    private final TestRepository testRepository;
+    private final TestForMainPageMapper testForMainPageMapper;
+    private final ViewTestMapper viewTestMapper;
+
+    public ViewTestDTO getViewTest(){
+        return viewTestMapper.mapToDTO(getQuestion().getBody(),
+                getPosition(),
+                getTestTitle(),
+                getTestSize(),
+                getQuestion().getAnswers(),
+                getQuestionType());
+    }
 
     public void testRun(int id) {
-        Test test = testDaoImpl.findById(id).orElse(null);
+        Test test = testRepository.findById(id).orElse(null);
         testDto =  new TestDTO().convertToDto(test);
         System.out.println(testDto);
         if (testDto.getSize() > 0) {
@@ -68,7 +84,9 @@ public class TestService {
         return testDto.getSize();
     }
 
-    public List<Test> getListTest() {
-        return testDaoImpl.findAll();
+    public List<TestForMainPageDTO> getListTestForMain() {
+        return testRepository.findAll().stream()
+                .map(testForMainPageMapper::mapToDTO)
+                .collect(Collectors.toList());
     }
 }
