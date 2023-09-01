@@ -1,10 +1,8 @@
 package com.setlocal.psychologyTests.controller;
 
-import com.setlocal.psychologyTests.dto.QuestionDTO;
-import com.setlocal.psychologyTests.model.Test;
-import com.setlocal.psychologyTests.service.PersonService;
+import com.setlocal.psychologyTests.dto.model.QuestionDTO;
 import com.setlocal.psychologyTests.service.TestResultService;
-import com.setlocal.psychologyTests.service.TestService;
+import com.setlocal.psychologyTests.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -12,9 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @Scope("session")
@@ -28,25 +23,12 @@ public class QuestionController {
     @Value(value = "Закончить")
     private String buttonEnd;
 
-    private List<Test> testList = new ArrayList<>();
-
-    private final TestService testService;
+    private final QuestionService questionService;
     private final TestResultService testResultService;
-    private final PersonService personService;
-
-    @GetMapping("/")
-    public String main(Model model) {
-        if (testList.isEmpty()) {
-            testList = testService.getListTest();
-        }
-        model.addAttribute("titles", testList);
-        model.addAttribute("personForViewDTO", personService.showUserInfo());
-        return "test-start";
-    }
 
     @GetMapping("/test-end")
     public String endTest(Model model) {
-        if (!testService.isRun())
+        if (!questionService.isRun())
             return "redirect:/";
         model.addAttribute("resultQuest", testResultService.getResultQuest());
         return "test-end";
@@ -54,16 +36,16 @@ public class QuestionController {
 
     @GetMapping("/test-view")
     public String viewTest(Model model) {
-        if (!testService.isRun())
+        if (!questionService.isRun())
             return "redirect:/";
-        QuestionDTO questionDto = testService.getQuestion();
+        QuestionDTO questionDto = questionService.getQuestion();
         if (questionDto != null) {
-            model.addAttribute("title", testService.getTestTitle());
+            model.addAttribute("title", questionService.getTestTitle());
             model.addAttribute("quest", questionDto.getBody());
-            model.addAttribute("type", testService.getQuestionType());
+            model.addAttribute("type", questionService.getQuestionType());
             model.addAttribute("answers", questionDto.getAnswers());
-            model.addAttribute("position", testService.getPosition());
-            model.addAttribute("sizeTest", testService.getTestSize());
+            model.addAttribute("position", questionService.getPosition());
+            model.addAttribute("sizeTest", questionService.getTestSize());
             model.addAttribute("buttonNext", buttonNext);
             model.addAttribute("buttonPref", buttonPref);
             model.addAttribute("buttonEnd", buttonEnd);
@@ -74,35 +56,33 @@ public class QuestionController {
 
     @PostMapping("/test-post-start")
     public String testPostStart(Integer id) {
-        testService.testRun(id);
+        questionService.testRun(id);
         return "redirect:/test-view";
     }
 
     @PostMapping("/test-post-end")
     public String testPostEnd() {
-        if (!testService.isRun())
+        if (!questionService.isRun())
             return "redirect:/";
-        testService.testStop();
+        questionService.testStop();
         testResultService.resultClear();
         return "redirect:/";
     }
 
     @PostMapping("/test-post-view")
     public String testPostNext(String button, Integer... id) {
-        if (!testService.isRun())
+        if (!questionService.isRun())
             return "redirect:/";
 
         if (button.equals(buttonNext)) {
-            testResultService.addResult(testService.getQuestion().getId(), id);
-            System.out.println(testService.getQuestion());
-            System.out.println(testService.getQuestion().getId());
-            testService.nextPosition();
+            testResultService.addResult(questionService.getQuestion().getId(), id);
+            questionService.nextPosition();
         }
         if (button.equals(buttonPref))
-            testService.prefPosition();
+            questionService.prefPosition();
 
         if (button.equals(buttonEnd)) {
-            testResultService.addResult(testService.getQuestion().getId(), id);
+            testResultService.addResult(questionService.getQuestion().getId(), id);
             return "redirect:/test-end";
         }
         return "redirect:/test-view";

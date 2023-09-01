@@ -1,5 +1,6 @@
-package com.setlocal.psychologyTests.dto;
+package com.setlocal.psychologyTests.dto.model;
 
+import com.setlocal.psychologyTests.dto.MapToDTO;
 import com.setlocal.psychologyTests.model.Answer;
 import lombok.*;
 
