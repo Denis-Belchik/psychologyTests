@@ -1,5 +1,6 @@
 package com.setlocal.psychologyTests.controller;
 
+import com.setlocal.psychologyTests.dto.model.AnswerPersonDTO;
 import com.setlocal.psychologyTests.service.TestResultService;
 import com.setlocal.psychologyTests.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -60,13 +61,13 @@ public class QuestionController {
     }
 
     @PostMapping("/test-post-view")
-    public String testPostNext(String button, Integer... id) {
+    public String testPostNext(String button, AnswerPersonDTO answerPersonDTO) {
         if (!questionService.isRun()) {
             return "redirect:/";
         }
 
         if (button.equals(buttonNext)) {
-//            testResultService.addResult(questionService.getQuestion().getId(), id);
+            testResultService.addResult(answerPersonDTO);
             questionService.nextPosition();
         }
 
@@ -75,7 +76,7 @@ public class QuestionController {
         }
 
         if (button.equals(buttonEnd)) {
-//            testResultService.addResult(questionService.getQuestion().getId(), id);
+            testResultService.addResult(answerPersonDTO);
             return "redirect:/test-end";
         }
 

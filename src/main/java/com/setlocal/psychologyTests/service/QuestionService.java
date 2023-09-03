@@ -36,6 +36,8 @@ public class QuestionService {
 
     public ViewTestDTO getViewTest() {
         return viewTestMapper.mapToDTO(
+                getQuestion().getId(),
+                testDTO.getId(),
                 getQuestion().getBody(),
                 getPosition(),
                 getTestTitle(),
