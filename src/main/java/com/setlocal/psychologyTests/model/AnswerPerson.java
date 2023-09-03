@@ -20,6 +20,15 @@ public class AnswerPerson {
     @Column(name = "person_username")
     private String username;
 
+    @Column(name = "replay")
+    private int replay;
+
+    @Column(name = "replacement")
+    private int replacement;
+
+    @Column(name = "test_id")
+    private int testId;
+
     @Column(name = "question_id")
     private int questionID;
 

@@ -10,13 +10,17 @@ import java.util.List;
 @Component
 public class ViewTestMapper {
 
-    public ViewTestDTO mapToDTO(String question,
+    public ViewTestDTO mapToDTO(int questionID,
+                                int testID,
+                                String question,
                                 int position,
                                 String title,
                                 int size,
                                 List<AnswerDTO> answers,
-                                Question.TypeAnswer typeAnswer){
+                                Question.TypeAnswer typeAnswer) {
         ViewTestDTO viewTestDTO = new ViewTestDTO();
+        viewTestDTO.setQuestionID(questionID);
+        viewTestDTO.setTestId(testID);
         viewTestDTO.setQuestion(question);
         viewTestDTO.setPosition(position);
         viewTestDTO.setTitle(title);

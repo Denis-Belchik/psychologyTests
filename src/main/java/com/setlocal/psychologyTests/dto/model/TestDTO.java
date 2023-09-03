@@ -8,7 +8,7 @@ import java.util.List;
 @NoArgsConstructor
 public class TestDTO {
 
-    private int id;
+    private Integer id;
     private String title;
     private int size;
     private List<QuestionDTO> questions;

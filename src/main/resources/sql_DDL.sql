@@ -12,6 +12,11 @@ drop TABLE psychology_tests.question;
 
 drop TABLE psychology_tests.test;
 
+select replay from psychology_tests.answer_person
+where person_username = ? and test_id = ?;
+
+
+
 
 create table psychology_tests.answer_key
 (
@@ -25,9 +30,12 @@ create table psychology_tests.answer_person
 (
     id_ap serial primary key,
     person_username varchar(100) not null,
+    replay int not null,
+    test_id int not null,
+    replacement int,
 --    person_username varchar(100) references psychology_tests.person (username) not null,
     question_id    int not null,
-    position    int[] not null
+    position    int[]
 );
 
 create table psychology_tests.test

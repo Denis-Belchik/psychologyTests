@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ViewTestDTO {
 
+    private int questionID;
+    private int testId;
     private String title;
     private int size;
     private int position;
