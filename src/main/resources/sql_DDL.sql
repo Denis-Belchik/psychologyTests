@@ -4,6 +4,8 @@ create schema psychology_tests;
 
 drop TABLE psychology_tests.answer;
 
+drop TABLE psychology_tests.answer_person;
+
 drop TABLE psychology_tests.answer_key;
 
 drop TABLE psychology_tests.question;
@@ -25,7 +27,7 @@ create table psychology_tests.answer_person
     person_username varchar(100) not null,
 --    person_username varchar(100) references psychology_tests.person (username) not null,
     question_id    int not null,
-    position    int not null
+    position    int[] not null
 );
 
 create table psychology_tests.test

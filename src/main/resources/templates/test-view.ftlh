@@ -180,15 +180,15 @@
 </style>
 
 <body>
-<h1>${title}</h1>
+<h1>${attribute.title}</h1>
 <form class="containerForm" method="post" action="/test-post-view">
     <fieldset>
-        <p>${position + 1}/${sizeTest}</p>
-        <h1>${quest}</h1>
+        <p>${attribute.position + 1}/${attribute.size}</p>
+        <h1>${attribute.question}</h1>
 
-        <#if type == "RADIO">
+        <#if attribute.typeAnswer == "RADIO">
 
-            <#list answers as answer>
+            <#list attribute.answers as answer>
                 <label class="container">${answer.answer}
                     <input type="radio" name="id" value="${answer.position}">
                     <span class="checkmark"></span>
@@ -197,7 +197,7 @@
 
         <#else>
 
-            <#list answers as answer>
+            <#list attribute.answers as answer>
                 <label class="containerCheckbox">${answer.answer}
                     <input type="checkbox" name="id" value="${answer.position}">
                     <span class="checkmarkCheckbox"></span>
@@ -206,11 +206,11 @@
 
         </#if>
 
-        <#if position != 0>
+        <#if attribute.position != 0>
             <input class="button" type="submit" name="button" value=${buttonPref}>
         </#if>
 
-        <#if position == sizeTest - 1>
+        <#if attribute.position == attribute.size - 1>
             <input class="button" type="submit" name="button" value=${buttonEnd}>
         <#else>
             <input class="button" type="submit" name="button" value=${buttonNext}>

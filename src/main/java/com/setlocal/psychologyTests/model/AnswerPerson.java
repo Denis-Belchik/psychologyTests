@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -22,6 +24,6 @@ public class AnswerPerson {
     private int questionID;
 
     @Column(name = "position")
-    private int position;
+    private List<Integer> positionAnswer;
 
 }

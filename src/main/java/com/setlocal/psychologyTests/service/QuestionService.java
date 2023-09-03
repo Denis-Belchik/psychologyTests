@@ -1,13 +1,15 @@
 package com.setlocal.psychologyTests.service;
 
 import com.setlocal.psychologyTests.dto.ViewTestDTO;
+import com.setlocal.psychologyTests.dto.model.AnswerDTO;
 import com.setlocal.psychologyTests.dto.model.QuestionDTO;
 import com.setlocal.psychologyTests.dto.model.TestDTO;
 import com.setlocal.psychologyTests.dto.mainPage.TestForMainPageDTO;
+import com.setlocal.psychologyTests.exception.TestNotFoundException;
 import com.setlocal.psychologyTests.mapper.TestForMainPageMapper;
+import com.setlocal.psychologyTests.mapper.model.TestMapper;
 import com.setlocal.psychologyTests.mapper.ViewTestMapper;
 import com.setlocal.psychologyTests.model.Question;
-import com.setlocal.psychologyTests.model.Test;
 import com.setlocal.psychologyTests.repository.test.TestRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,39 +27,37 @@ public class QuestionService {
 
     private int position = 0;
     private boolean isRun = false;
-    private TestDTO testDto;
+    private TestDTO testDTO;
 
     private final TestRepository testRepository;
     private final TestForMainPageMapper testForMainPageMapper;
     private final ViewTestMapper viewTestMapper;
+    private final TestMapper testMapper;
 
-    public ViewTestDTO getViewTest(){
-        return viewTestMapper.mapToDTO(getQuestion().getBody(),
+    public ViewTestDTO getViewTest() {
+        return viewTestMapper.mapToDTO(
+                getQuestion().getBody(),
                 getPosition(),
                 getTestTitle(),
                 getTestSize(),
-                getQuestion().getAnswers(),
+                getAnswers(),
                 getQuestionType());
     }
 
     public void testRun(int id) {
-        Test test = testRepository.findById(id).orElse(null);
-        testDto =  new TestDTO().convertToDto(test);
-        System.out.println(testDto);
-        if (testDto.getSize() > 0) {
-            isRun = true;
-        } else {
-            testStop();
-        }
+        testDTO = testRepository.findById(id)
+                .map(testMapper::mapToDto)
+                .orElseThrow(() -> new TestNotFoundException("Не найден тест = " + id));
+        isRun = true;
     }
 
     public void testStop() {
         position = 0;
-        testDto = null;
+        testDTO = null;
     }
 
     public void nextPosition() {
-        if (position < testDto.getSize())
+        if (position < testDTO.getSize())
             position++;
     }
 
@@ -67,21 +67,27 @@ public class QuestionService {
     }
 
     public QuestionDTO getQuestion() {
-        if (testDto.getSize() > position)
-            return testDto.getQuestions().get(position);
+        if (testDTO.getSize() > position)
+            return testDTO.getQuestions().get(position);
+        return null;
+    }
+
+    public List<AnswerDTO> getAnswers() {
+        if (testDTO.getSize() > position)
+            return testDTO.getQuestions().get(position).getAnswers();
         return null;
     }
 
     public Question.TypeAnswer getQuestionType() {
-        return testDto.getQuestions().get(position).getType();
+        return testDTO.getQuestions().get(position).getType();
     }
 
     public String getTestTitle() {
-        return testDto.getTitle();
+        return testDTO.getTitle();
     }
 
     public Integer getTestSize() {
-        return testDto.getSize();
+        return testDTO.getSize();
     }
 
     public List<TestForMainPageDTO> getListTestForMain() {
